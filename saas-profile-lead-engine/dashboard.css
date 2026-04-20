@@ -109,7 +109,7 @@ body {
 
 /* Tabs - Clean Scroll */
 .saas-tabs {
-    display: inline-block;
+    display: flex;
     gap: 8px;
     overflow-x: auto;
     padding: 12px 10px;

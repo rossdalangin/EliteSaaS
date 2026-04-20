@@ -83,15 +83,31 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
                 }
                 ?>
             </div>
+
+            <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
             <nav id="site-navigation" class="main-navigation">
-                <ul class="primary-menu-list">
+                <ul id="primary-menu" class="primary-menu-list">
                     <li><a href="<?php echo home_url('/'); ?>">Home</a></li>
                     <li><a href="<?php echo home_url('/directory'); ?>">Discovery</a></li>
                     <li><a href="<?php echo home_url('/pricing'); ?>">Pricing</a></li>
                     <li><a href="<?php echo home_url('/about'); ?>">About</a></li>
                     <li><a href="<?php echo home_url('/contact'); ?>">Contact</a></li>
+                    <li class="mobile-only-cta">
+                        <?php if ( is_user_logged_in() ) : ?>
+                            <a href="<?php echo home_url('/dashboard'); ?>">Dashboard</a>
+                        <?php else : ?>
+                            <a href="<?php echo home_url('/login'); ?>">Login</a>
+                            <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured" style="margin-top: 10px;">Get Started</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </nav>
+
             <div class="header-cta">
                 <?php if ( is_user_logged_in() ) : ?>
                     <a href="<?php echo home_url('/dashboard'); ?>" class="saas-link-btn style-featured" style="padding: 10px 24px; font-size: 0.9rem;">Dashboard</a>
@@ -105,3 +121,29 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
 <?php endif; ?>
 
 <?php wp_body_open(); ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const siteNavigation = document.getElementById('site-navigation');
+
+    if (menuToggle && siteNavigation) {
+        menuToggle.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+            siteNavigation.classList.toggle('is-active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking a link
+        const navLinks = siteNavigation.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                siteNavigation.classList.remove('is-active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+    }
+});
+</script>
