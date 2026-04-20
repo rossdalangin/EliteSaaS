@@ -12,39 +12,39 @@ $h_cta   = get_option('saas_home_cta') ?: 'Get Started Free';
 $h_img   = get_option('saas_home_image');
 ?>
 
-<main id="front-page" class="site-main" style="min-height: 100vh; display: flex; flex-direction:column; align-items: center; background: #fff; position:relative; overflow:hidden;">
+<main id="front-page" class="landing-main">
     <!-- Animated Mesh Background -->
-    <div style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; opacity:0.1;">
-        <div style="position:absolute; width:150%; height:150%; background:radial-gradient(circle, #6e45e2 0%, transparent 60%); top:-25%; left:-25%; animation: rotate 30s linear infinite;"></div>
-        <div style="position:absolute; width:150%; height:150%; background:radial-gradient(circle, #39e09b 0%, transparent 60%); bottom:-25%; right:-25%; animation: rotate 20s linear reverse infinite;"></div>
+    <div class="animated-mesh-bg">
+        <div class="mesh-circle-1"></div>
+        <div class="mesh-circle-2"></div>
     </div>
 
-    <div class="landing-content" style="max-width: 1200px; text-align: center; z-index: 1; padding: 120px 20px;">
+    <div class="landing-content">
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); the_content(); endwhile; endif; ?>
 
-        <h1 style="font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom:30px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -3px; transform: scale(1);">
+        <h1 class="landing-title">
             <?php echo esc_html($h_title); ?>
         </h1>
-        <p style="font-size: 1.8rem; color: #636e72; font-weight: 500; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4;">
+        <p class="landing-hero-text">
             <?php echo esc_html($h_hero); ?>
         </p>
 
         <div class="cta-actions">
-            <div class="hero-claim-wrapper" style="margin-top: 40px;">
-                <form action="<?php echo home_url('/register'); ?>" method="GET" style="display:inline-flex; background:#fff; padding:10px; border-radius:100px; box-shadow:0 15px 35px rgba(0,0,0,0.1); border:1px solid #eee; width:100%; max-width:600px; text-align:left;">
-                    <span style="padding:0 20px; color:#999; display:flex; align-items:center; font-weight:700;"><?php echo parse_url(home_url(), PHP_URL_HOST); ?>/</span>
-                    <input type="text" name="username" id="saas-home-username" placeholder="yourname" style="flex:1; border:none; outline:none; font-size:1.1rem; font-weight:700; padding:10px 0;">
-                    <button type="submit" style="background:linear-gradient(135deg, #6c5ce7, #a29bfe); color:#fff; border:none; padding:15px 40px; border-radius:50px; font-weight:800; cursor:pointer; margin-left:10px;"><?php echo esc_html($h_cta); ?></button>
+            <div class="hero-claim-wrapper">
+                <form action="<?php echo home_url('/register'); ?>" method="GET" class="hero-claim-form">
+                    <span class="hero-claim-prefix"><?php echo parse_url(home_url(), PHP_URL_HOST); ?>/</span>
+                    <input type="text" name="username" id="saas-home-username" placeholder="yourname" class="hero-claim-input">
+                    <button type="submit" class="hero-claim-btn"><?php echo esc_html($h_cta); ?></button>
                 </form>
-                <div id="username-status" style="margin-top:10px; font-size:0.9rem; font-weight:700; height:20px; color:#6c5ce7;"></div>
-                <p style="margin-top: 20px; color: #a0a0a0; font-size: 0.9rem;">No credit card required. Setup in minutes.</p>
+                <div id="username-status" style="margin-top:10px; font-size:0.9rem; font-weight:700; height:20px; color:var(--primary-color);"></div>
+                <p style="margin-top: 20px; color: var(--text-lighter); font-size: 0.9rem;">No credit card required. Setup in minutes.</p>
             </div>
         </div>
 
         <!-- Social Proof Logos -->
-        <div class="trusted-by" style="margin-top: 60px; margin-bottom: 40px;">
-            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #a0a0a0; margin-bottom: 20px;">Trusted by innovators at</p>
-            <div style="display: flex; justify-content: center; gap: 40px; filter: grayscale(1); opacity: 0.5; flex-wrap: wrap;">
+        <div class="trusted-by-section">
+            <p class="trusted-by-title">Trusted by innovators at</p>
+            <div class="trusted-logos-container">
                 <?php
                 $logos_json = get_option('saas_home_trusted_logos');
                 $logos = json_decode($logos_json, true) ?: [
@@ -59,12 +59,12 @@ $h_img   = get_option('saas_home_image');
         </div>
 
         <?php if ($h_img) : ?>
-            <div class="hero-image-container" style="margin-top: 80px; transform: perspective(2000px) rotateX(10deg) translateY(-20px);">
+            <div class="hero-image-perspective">
                 <img src="<?php echo esc_url($h_img); ?>" alt="Product Preview" style="max-width: 90%; border-radius: 40px; box-shadow: 0 80px 150px rgba(108, 92, 231, 0.3);">
             </div>
         <?php else : ?>
             <!-- Default Dashboard Preview Mockup -->
-            <div class="hero-image-container" style="margin-top: 80px; transform: perspective(2000px) rotateX(10deg) translateY(-20px); max-width: 1000px; margin-left: auto; margin-right: auto;">
+            <div class="hero-image-perspective" style="max-width: 1000px; margin-left: auto; margin-right: auto;">
                 <div style="background: #fff; border-radius: 40px; box-shadow: 0 80px 150px rgba(108, 92, 231, 0.2); padding: 40px; border: 1px solid #eee; display: flex; gap: 30px; text-align: left;">
                     <div style="flex: 1; background: #f8f9fa; border-radius: 20px; padding: 20px;">
                         <div style="width: 40px; height: 10px; background: #ddd; margin-bottom: 20px;"></div>
@@ -72,7 +72,7 @@ $h_img   = get_option('saas_home_image');
                         <div style="width: 80%; height: 10px; background: #ddd;"></div>
                     </div>
                     <div style="flex: 2;">
-                        <div style="height: 40px; background: #6c5ce7; border-radius: 10px; margin-bottom: 20px; width: 60%;"></div>
+                        <div style="height: 40px; background: var(--primary-color); border-radius: 10px; margin-bottom: 20px; width: 60%;"></div>
                         <div style="height: 15px; background: #eee; border-radius: 5px; margin-bottom: 10px;"></div>
                         <div style="height: 15px; background: #eee; border-radius: 5px; margin-bottom: 10px; width: 80%;"></div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px;">
@@ -90,48 +90,48 @@ $h_img   = get_option('saas_home_image');
 <?php include __DIR__ . '/template-parts/content-hero.php'; ?>
 
 <!-- Growth Stats Section -->
-<section style="padding: 80px 20px; background: #f8fafc;">
+<section class="stats-section">
     <?php
     $count_profiles = wp_count_posts('saas_profile')->publish;
     $count_leads = wp_count_posts('saas_lead')->publish;
     global $wpdb;
     $total_rev = $wpdb->get_var("SELECT SUM(meta_value) FROM $wpdb->postmeta WHERE meta_key = '_saas_order_amount'");
     ?>
-    <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
-        <div>
-            <div style="font-size: 3.5rem; font-weight: 900; color: #6c5ce7;"><?php echo number_format($count_profiles + 1250); ?>+</div>
-            <p style="font-weight: 700; color: #64748b;">Elite Profiles</p>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-value" style="color: var(--primary-color);"><?php echo number_format($count_profiles + 1250); ?>+</div>
+            <p class="stat-label">Elite Profiles</p>
         </div>
-        <div>
-            <div style="font-size: 3.5rem; font-weight: 900; color: #10b981;">$<?php echo number_format(($total_rev / 1000) + 42.5, 1); ?>M+</div>
-            <p style="font-weight: 700; color: #64748b;">Revenue Tracked</p>
+        <div class="stat-item">
+            <div class="stat-value" style="color: #10b981;">$<?php echo number_format(($total_rev / 1000) + 42.5, 1); ?>M+</div>
+            <p class="stat-label">Revenue Tracked</p>
         </div>
-        <div>
-            <div style="font-size: 3.5rem; font-weight: 900; color: #f59e0b;"><?php echo number_format($count_leads + 8500); ?>+</div>
-            <p style="font-weight: 700; color: #64748b;">Leads Captured</p>
+        <div class="stat-item">
+            <div class="stat-value" style="color: #f59e0b;"><?php echo number_format($count_leads + 8500); ?>+</div>
+            <p class="stat-label">Leads Captured</p>
         </div>
     </div>
 </section>
 
 <!-- Tech Preview Section -->
-<section class="features-section" style="padding: 120px 20px; background: #fff; border-top: 1px solid #eee; position: relative;">
+<section class="feature-highlight-section">
     <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-        <h2 style="font-size: 4rem; font-weight: 900; margin-bottom: 80px; letter-spacing: -2px;">The only link hub with an <span style="color:#6c5ce7;">IQ</span>.</h2>
+        <h2 class="section-title-large">The only link hub with an <span style="color:var(--primary-color);">IQ</span>.</h2>
 
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-bottom: 80px; text-align: left; align-items: center;">
-            <div style="background:#f8fafc; padding:60px; border-radius:40px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.02); transition: transform 0.4s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'">
+            <div class="feature-card-light" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='none'" style="transition: transform 0.4s;">
                 <div style="display:flex; gap:10px; margin-bottom:25px;">
-                    <span style="background:rgba(108, 92, 231, 0.1); color:#6c5ce7; padding:8px 18px; border-radius:50px; font-weight:800; font-size:0.75rem; text-transform: uppercase; letter-spacing: 1px;">Smart Routing</span>
-                    <span style="background:rgba(57, 224, 155, 0.1); color:#10b981; padding:8px 18px; border-radius:50px; font-weight:800; font-size:0.75rem; text-transform: uppercase; letter-spacing: 1px;">A/B Testing</span>
+                    <span class="badge-ui">Smart Routing</span>
+                    <span class="badge-ui" style="background:rgba(57, 224, 155, 0.1); color:#10b981;">A/B Testing</span>
                 </div>
                 <h3 style="font-size:2.75rem; margin-bottom:25px; line-height:1.1; font-weight: 900;">Automate your growth.</h3>
-                <p style="color:#64748b; font-size:1.25rem; line-height:1.7; font-weight: 500;">Our engine detects visitor intent, device, and location in real-time. Serve optimized content to every user automatically. Run split tests on your CTAs to identify your highest-converting offers with mathematical precision.</p>
+                <p style="color:var(--text-light); font-size:1.25rem; line-height:1.7; font-weight: 500;">Our engine detects visitor intent, device, and location in real-time. Serve optimized content to every user automatically. Run split tests on your CTAs to identify your highest-converting offers with mathematical precision.</p>
                 <div style="margin-top: 30px; display: flex; align-items: center; gap: 15px; color: #1e293b; font-weight: 700;">
-                    <div style="width: 40px; height: 40px; background: #6c5ce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">📊</div>
+                    <div style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">📊</div>
                     <span>Real-time optimization engine active.</span>
                 </div>
             </div>
-            <div style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding:60px; border-radius:40px; color:#fff; position:relative; overflow:hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05);">
+            <div class="feature-card-dark">
                 <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:25px; border-radius:20px; margin-bottom:20px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
                         <strong>Variant A: "Book Now"</strong>
@@ -153,9 +153,9 @@ $h_img   = get_option('saas_home_image');
 </section>
 
 <!-- How It Works Section -->
-<section style="padding: 120px 20px; background: #fff;">
+<section style="padding: 120px 24px; background: #fff;">
     <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
-        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 60px;">Your elite presence in 3 simple steps</h2>
+        <h2 class="section-title-large">Your elite presence in 3 simple steps</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;">
             <?php
             $how_it_works_json = get_option('saas_home_how_it_works_json');
@@ -166,8 +166,8 @@ $h_img   = get_option('saas_home_image');
             ];
             $step_num = 1;
             foreach ($steps as $s) : ?>
-                <div style="padding: 40px; border-radius: 32px; background: #f8f9fa; border: 1px solid #eee;">
-                    <div style="width: 50px; height: 50px; background: #6c5ce7; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 20px;"><?php echo $step_num++; ?></div>
+                <div style="padding: 40px; border-radius: var(--radius-xl); background: #f8f9fa; border: 1px solid #eee;">
+                    <div style="width: 50px; height: 50px; background: var(--primary-color); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 20px;"><?php echo $step_num++; ?></div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 15px;"><?php echo esc_html($s['title']); ?></h3>
                     <p><?php echo esc_html($s['desc']); ?></p>
                 </div>
@@ -177,9 +177,9 @@ $h_img   = get_option('saas_home_image');
 </section>
 
 <!-- Theme Showcase Section -->
-<section style="padding: 120px 20px; background: #f8fafc;">
+<section style="padding: 120px 24px; background: #f8fafc;">
     <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 60px;">Bespoke themes for elite brands</h2>
+        <h2 class="section-title-large">Bespoke themes for elite brands</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
             <div style="padding: 30px; border-radius: 24px; background: #fff; border: 1px solid #e2e8f0;">
                 <div style="height: 200px; background: #f8fafc; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #64748b;">Light Mode</div>
@@ -202,10 +202,10 @@ $h_img   = get_option('saas_home_image');
 </section>
 
 <!-- Featured Profiles Section -->
-<section style="padding: 120px 20px; background: #fff;">
+<section style="padding: 120px 24px; background: #fff;">
     <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
         <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Join thousands of elite professionals</h2>
-        <p style="color: #636e72; font-size: 1.25rem; margin-bottom: 60px;">See how others are using our platform to scale their digital identity.</p>
+        <p style="color: var(--text-light); font-size: 1.25rem; margin-bottom: 60px;">See how others are using our platform to scale their digital identity.</p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <?php
@@ -224,7 +224,7 @@ $h_img   = get_option('saas_home_image');
                     $fp_meta = saas_get_profile_meta($fp->ID);
                     $fp_url = home_url('/' . $fp->post_name);
                     ?>
-                    <div style="background:#fff; border: 1px solid #eee; padding:40px; border-radius:32px; box-shadow:0 20px 40px rgba(0,0,0,0.03); text-align:center; transition: all 0.3s;" onmouseover="this.style.borderColor='#6c5ce7'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='#eee'; this.style.transform='none'">
+                    <div style="background:#fff; border: 1px solid #eee; padding:40px; border-radius:32px; box-shadow:0 20px 40px rgba(0,0,0,0.03); text-align:center; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--primary-color)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='#eee'; this.style.transform='none'">
                         <div style="width:100px; height:100px; margin:0 auto 20px; border-radius:50%; overflow:hidden; border:4px solid #f8f9fa;">
                             <?php if (has_post_thumbnail($fp->ID)) : ?>
                                 <?php echo get_the_post_thumbnail($fp->ID, 'thumbnail', ['style' => 'width:100%; height:100%; object-fit:cover;']); ?>
@@ -233,7 +233,7 @@ $h_img   = get_option('saas_home_image');
                             <?php endif; ?>
                         </div>
                         <h3 style="margin-bottom:5px;"><?php echo esc_html($fp->post_title); ?></h3>
-                        <p style="color:#6c5ce7; font-weight:700; font-size:0.9rem; margin-bottom:15px;"><?php echo esc_html($fp_meta['headline']); ?></p>
+                        <p style="color:var(--primary-color); font-weight:700; font-size:0.9rem; margin-bottom:15px;"><?php echo esc_html($fp_meta['headline']); ?></p>
                         <a href="<?php echo esc_url($fp_url); ?>" target="_blank" style="display:inline-block; padding:10px 24px; background:#f1f2f6; color:#2d3436; text-decoration:none; border-radius:50px; font-weight:700; font-size:0.85rem;">View Profile</a>
                     </div>
                 <?php endforeach;
@@ -250,16 +250,16 @@ $h_img   = get_option('saas_home_image');
 <?php
 $comparison_json = get_option('saas_home_comparison_json');
 if ($comparison_json) : ?>
-<section style="padding: 120px 20px; background: #fff;">
+<section style="padding: 120px 24px; background: #fff;">
     <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 60px;">Why elite creators choose us</h2>
+        <h2 class="section-title-large">Why elite creators choose us</h2>
         <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse; text-align: left; background: #fff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.05);">
                 <thead>
                     <tr style="background: #f8fafc;">
                         <th style="padding: 30px; font-size: 1.2rem;">Feature</th>
                         <th style="padding: 30px; font-size: 1.2rem; color: #94a3b8;">Basic Link Hubs</th>
-                        <th style="padding: 30px; font-size: 1.2rem; color: #6c5ce7; font-weight: 900;">Elite SaaS Funnel</th>
+                        <th style="padding: 30px; font-size: 1.2rem; color: var(--primary-color); font-weight: 900;">Elite SaaS Funnel</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -280,9 +280,9 @@ if ($comparison_json) : ?>
 <?php endif; ?>
 
 <!-- Testimonials Section -->
-<section style="padding: 120px 20px; background: #f8fafc;">
+<section style="padding: 120px 24px; background: #f8fafc;">
     <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 80px;"><?php echo get_option('saas_home_testimonials_title') ?: 'What elite creators are saying'; ?></h2>
+        <h2 class="section-title-large"><?php echo get_option('saas_home_testimonials_title') ?: 'What elite creators are saying'; ?></h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
             <?php
             $t_json = get_option('saas_home_testimonials');
@@ -305,7 +305,7 @@ if ($comparison_json) : ?>
 </section>
 
 <!-- Pricing Section -->
-<section style="padding: 100px 20px; background: #fff;">
+<section class="pricing-section">
     <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
         <h2 style="font-size: 2.5rem; margin-bottom: 60px;"><?php echo get_option('saas_pricing_title') ?: 'Simple, Transparent Pricing'; ?></h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: stretch;">
@@ -328,18 +328,18 @@ if ($comparison_json) : ?>
             foreach ($plans as $p) :
                 $is_featured = ($p['style'] === 'featured');
             ?>
-                <div style="padding: 40px; border-radius: 32px; <?php echo $is_featured ? 'background: #6c5ce7; color: #fff; position: relative; transform: scale(1.05); box-shadow: 0 20px 50px rgba(108, 92, 231, 0.2);' : 'border: 1px solid #eee; background: #fff;'; ?> display: flex; flex-direction: column;">
+                <div class="pricing-plan-card <?php echo $is_featured ? 'is-featured' : 'is-light'; ?>">
                     <?php if (isset($p['badge'])) : ?>
                         <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #39e09b; padding: 5px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; color: #1e2329;"><?php echo esc_html($p['badge']); ?></div>
                     <?php endif; ?>
                     <h3><?php echo esc_html($p['name']); ?></h3>
                     <div style="font-size: 3rem; font-weight: 800; margin: 20px 0;"><?php echo esc_html($p['price']); ?><small style="font-size:1rem; opacity:0.7;"><?php echo esc_html($p['period']); ?></small></div>
-                    <ul style="list-style: none; padding: 0; margin-bottom: 30px; <?php echo $is_featured ? 'color: rgba(255,255,255,0.8);' : 'color: #666;'; ?> flex: 1;">
+                    <ul style="list-style: none; padding: 0; margin-bottom: 30px; <?php echo $is_featured ? 'color: rgba(255,255,255,0.8);' : 'color: var(--text-light);'; ?> flex: 1; text-align: left;">
                         <?php foreach ($p['features'] as $f) : ?>
                             <li style="margin-bottom:10px;">✓ <?php echo esc_html($f); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <a href="<?php echo home_url($p['link']); ?>" style="display: block; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; <?php echo $is_featured ? 'background: #fff; color: #6c5ce7;' : 'border: 2px solid #6c5ce7; color: #6c5ce7;'; ?>">
+                    <a href="<?php echo home_url($p['link']); ?>" style="display: block; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; <?php echo $is_featured ? 'background: #fff; color: var(--primary-color);' : 'border: 2px solid var(--primary-color); color: var(--primary-color);'; ?>">
                         <?php echo esc_html($p['cta']); ?>
                     </a>
                 </div>
@@ -349,7 +349,7 @@ if ($comparison_json) : ?>
 </section>
 
 <!-- Founder's Letter Section -->
-<section style="padding: 100px 20px; background: #f8fafc;">
+<section style="padding: 100px 24px; background: #f8fafc;">
     <div style="max-width: 800px; margin: 0 auto; background: #fff; padding: 60px; border-radius: 40px; border: 1px solid #e2e8f0; box-shadow: 0 10px 40px rgba(0,0,0,0.02);">
         <div style="display: flex; gap: 30px; align-items: center; margin-bottom: 30px;">
             <?php
@@ -357,22 +357,22 @@ if ($comparison_json) : ?>
             if ($founder_img) : ?>
                 <img src="<?php echo esc_url($founder_img); ?>" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
             <?php else : ?>
-                <div style="width: 80px; height: 80px; border-radius: 50%; background: #6c5ce7; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"></div>
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary-color); border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"></div>
             <?php endif; ?>
             <div>
                 <h3 style="margin: 0; font-size: 1.5rem;">A Message from the Founder</h3>
-                <p style="margin: 0; color: #64748b;">Consultant & Digital Architect</p>
+                <p style="margin: 0; color: var(--text-light);">Consultant & Digital Architect</p>
             </div>
         </div>
         <p style="font-size: 1.25rem; line-height: 1.8; color: #475569; font-style: italic;">
             "<?php echo get_option('saas_home_founder_letter') ?: 'I built this because I saw so many hard-working coaches losing leads to standard link trees. You deserve a system that converts your hard work into results.'; ?>"
         </p>
-        <p style="margin-top: 20px; font-weight: 700; color: #6c5ce7;">— Let’s help more people, together.</p>
+        <p style="margin-top: 20px; font-weight: 700; color: var(--primary-color);">— Let’s help more people, together.</p>
     </div>
 </section>
 
 <!-- Final CTA Section -->
-<section style="padding: 160px 20px; background: #000; color: #fff; text-align: center; position: relative; overflow: hidden; border-top: 1px solid rgba(212,175,55,0.2);">
+<section style="padding: 160px 24px; background: #000; color: #fff; text-align: center; position: relative; overflow: hidden; border-top: 1px solid rgba(212,175,55,0.2);">
     <!-- Animated Glows -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; pointer-events: none;">
         <div style="position: absolute; top: -20%; left: -20%; width: 60%; height: 60%; background: radial-gradient(circle, #d4af37 0%, transparent 70%); filter: blur(80px); animation: drift 20s infinite alternate;"></div>
@@ -381,7 +381,7 @@ if ($comparison_json) : ?>
     <style> @keyframes drift { from { transform: translate(0,0); } to { transform: translate(10%, 10%); } } </style>
 
     <div style="max-width: 1000px; margin: 0 auto; position: relative; z-index: 1;">
-        <h2 style="font-size: 5rem; font-weight: 900; margin-bottom: 25px; line-height: 1; letter-spacing: -3px; color: #fff;">
+        <h2 style="font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; margin-bottom: 25px; line-height: 1; letter-spacing: -3px; color: #fff;">
             Scale your <span style="background: linear-gradient(135deg, #d4af37, #f6e05e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Authority</span>.<br>
             Own your <span style="background: linear-gradient(135deg, #10b981, #39e09b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Future</span>.
         </h2>
@@ -404,27 +404,20 @@ if ($comparison_json) : ?>
 </section>
 
 <!-- FAQ Section -->
-<section style="padding: 100px 20px; background: #fff;">
+<section style="padding: 100px 24px; background: #fff;">
     <div style="max-width: 800px; margin: 0 auto;">
         <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 60px;">Common Questions</h2>
         <?php
         $f_json = get_option('saas_home_faq');
         $faqs = json_decode($f_json, true) ?: [];
         foreach ($faqs as $f) : ?>
-            <details style="background:#f8fafc; padding:20px; border-radius:16px; margin-bottom:15px; border: 1px solid #e2e8f0;">
-                <summary style="font-weight:700; cursor:pointer; outline:none;"><?php echo esc_html($f['q']); ?></summary>
-                <p style="margin-top:15px; line-height:1.6; color:#475569;"><?php echo esc_html($f['a']); ?></p>
+            <details class="faq-block" style="margin-bottom: 15px; background: #f8fafc; border-radius: 16px;">
+                <summary style="padding: 20px; font-weight: 700; cursor: pointer;"><?php echo esc_html($f['q']); ?></summary>
+                <p style="padding: 0 20px 20px; color: var(--text-light);"><?php echo esc_html($f['a']); ?></p>
             </details>
         <?php endforeach; ?>
     </div>
 </section>
-
-<style>
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-</style>
 
 <script>
 jQuery(document).ready(function($) {

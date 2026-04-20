@@ -72,14 +72,14 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
         </div>
     <?php endif; ?>
 
-    <header id="masthead" class="site-header" style="padding: 20px 0; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <header id="masthead" class="site-header">
+        <div class="header-container">
             <div class="site-branding">
                 <?php
                 if ( has_custom_logo() ) {
                     the_custom_logo();
                 } else {
-                    echo '<a href="' . esc_url( home_url( '/' ) ) . '" style="font-size: 1.5rem; font-weight: 800; text-decoration: none; color: #333;">' . get_bloginfo( 'name' ) . '</a>';
+                    echo '<a href="' . esc_url( home_url( '/' ) ) . '" style="font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--text-color);">' . get_bloginfo( 'name' ) . '</a>';
                 }
                 ?>
             </div>
@@ -91,18 +91,13 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
                     <li><a href="<?php echo home_url('/about'); ?>">About</a></li>
                     <li><a href="<?php echo home_url('/contact'); ?>">Contact</a></li>
                 </ul>
-                <style>
-                    .primary-menu-list { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
-                    .primary-menu-list a { text-decoration: none; color: #666; font-weight: 600; font-size: 0.95rem; }
-                    .primary-menu-list a:hover { color: var(--primary-color, #6c5ce7); }
-                </style>
             </nav>
             <div class="header-cta">
                 <?php if ( is_user_logged_in() ) : ?>
-                    <a href="<?php echo home_url('/dashboard'); ?>" class="button button-primary" style="background: var(--primary-color, #6c5ce7); color: #fff; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 700;">Dashboard</a>
+                    <a href="<?php echo home_url('/dashboard'); ?>" class="saas-link-btn style-featured" style="padding: 10px 24px; font-size: 0.9rem;">Dashboard</a>
                 <?php else : ?>
-                    <a href="<?php echo home_url('/login'); ?>" style="text-decoration: none; color: #666; font-weight: 600; margin-right: 20px;">Login</a>
-                    <a href="<?php echo home_url('/register'); ?>" class="button button-primary" style="background: var(--primary-color, #6c5ce7); color: #fff; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 700;">Get Started</a>
+                    <a href="<?php echo home_url('/login'); ?>" style="text-decoration: none; color: var(--text-light); font-weight: 600; margin-right: 24px;">Login</a>
+                    <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured" style="padding: 10px 24px; font-size: 0.9rem;">Get Started</a>
                 <?php endif; ?>
             </div>
         </div>

@@ -5,24 +5,34 @@
 
 get_header(); ?>
 
-<main id="about-page" class="site-main site-container" style="max-width: 900px; margin: 100px auto; padding: 0 20px;">
-    <?php $vision = get_option('saas_about_vision') ?: 'Empowering 100,000+ creators to own their digital identity.'; ?>
-    <div style="text-align: center; margin-bottom: 80px;">
-        <h1 style="font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Our Vision</h1>
-        <p style="font-size: 1.5rem; color: #636e72;"><?php echo esc_html($vision); ?></p>
-    </div>
+<main id="about-page" class="site-main">
+    <section class="landing-content" style="padding-top: 100px; padding-bottom: 60px;">
+        <?php $vision = get_option('saas_about_vision') ?: 'Empowering 100,000+ creators to own their digital identity.'; ?>
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h1 class="landing-title">Our Vision</h1>
+            <p class="landing-hero-text"><?php echo esc_html($vision); ?></p>
+        </div>
 
-    <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
-        <div>
-            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Why we built this.</h2>
-            <p style="font-size: 1.15rem; line-height: 1.8;">Social media is great for traffic, but terrible for ownership. We built this platform to give every professional a centralized, high-converting home on the internet that they truly control.</p>
+        <div class="stats-grid" style="margin-bottom: 100px;">
+            <div class="feature-card-light" style="text-align: left;">
+                <h2 style="margin-bottom: 20px;">Why we built this.</h2>
+                <p>Social media is great for traffic, but terrible for ownership. We built this platform to give every professional a centralized, high-converting home on the internet that they truly control.</p>
+            </div>
+            <div class="feature-card-dark" style="text-align: left;">
+                <div style="font-size: 3rem; margin-bottom: 10px;">✨</div>
+                <h3 style="color: #fff; margin-bottom: 10px;">Conversion First</h3>
+                <p style="color: rgba(255,255,255,0.7);">We don't just build link lists. We build lead machines designed by marketing experts.</p>
+            </div>
         </div>
-        <div style="background: var(--glass-bg); padding: 40px; border-radius: 32px; box-shadow: var(--shadow-soft);">
-            <div style="font-size: 3rem; margin-bottom: 10px;">✨</div>
-            <h3 style="margin-bottom: 10px;">Conversion First</h3>
-            <p>We don't just build link lists. We build lead machines designed by marketing experts.</p>
+
+        <div class="feature-card-light" style="max-width: 800px; margin: 0 auto; text-align: left; padding: 60px;">
+            <h3>The Problem</h3>
+            <p>Most "link in bio" tools are just static lists. They don't capture leads, they don't provide deep analytics, and they look like everyone else's. Elite creators need more.</p>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 32px 0;">
+            <h3>Our Solution</h3>
+            <p>A full-featured lead engine that turns your social traffic into a measurable business asset. From NFC business cards to A/B tested CTAs, we provide the tools you need to win.</p>
         </div>
-    </div>
+    </section>
 </main>
 
 <?php get_footer(); ?>

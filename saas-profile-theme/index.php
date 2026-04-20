@@ -139,7 +139,7 @@ include __DIR__ . '/header.php';
         <?php endif; ?>
         <h1>
             <?php echo esc_html( $profile->post_title ); ?>
-            <span class="verified-badge" title="Verified Professional" style="color:#1d9bf0; font-size:0.8em; margin-left:5px; <?php echo ($is_pro && get_post_meta($profile_id, '_saas_verified_badge', true)) ? '' : 'display:none;'; ?>">✅</span>
+            <span class="verified-badge" title="Verified Professional" style="color:#1d9bf0; font-size:0.8em; margin-left:5px; <?php echo ($is_pro && get_post_meta($profile_id, '_saas_verified_badge', true)) ? '' : 'display:none;'; ?>">✨</span>
         </h1>
         <p class="headline"><?php echo esc_html( $meta['headline'] ); ?></p>
         <p class="bio"><?php echo nl2br( esc_html( $meta['bio'] ) ); ?></p>
@@ -232,8 +232,9 @@ include __DIR__ . '/header.php';
                     </div>
                 <?php elseif ($type === 'testimonial') : ?>
                     <div class="testimonial-block">
-                        <p class="quote" style="font-size: 1.15rem; line-height: 1.7; font-style: italic; color: #334155;">"<?php echo esc_html( get_post_meta($block->ID, '_saas_testimonial_text', true) ); ?>"</p>
-                        <cite style="display: block; margin-top: 20px; font-weight: 900; color: #0f172a; font-style: normal; font-size: 1.1rem;">— <?php echo esc_html( $block->post_title ); ?></cite>
+                        <div style="font-size: 2rem; color: var(--primary-color); margin-bottom: 10px; opacity: 0.3;">“</div>
+                        <p class="quote">"<?php echo esc_html( get_post_meta($block->ID, '_saas_testimonial_text', true) ); ?>"</p>
+                        <cite>— <?php echo esc_html( $block->post_title ); ?></cite>
                         <?php if ($url && $url !== '#') : ?>
                             <a href="<?php echo esc_url($url); ?>" class="testimonial-link" target="_blank">View Case Study ↗</a>
                         <?php endif; ?>
@@ -332,30 +333,30 @@ include __DIR__ . '/header.php';
                         </div>
                     </div>
                 <?php elseif ($type === 'lead_form') : ?>
-                    <section class="lead-form-section block-lead-form">
-                        <h3><?php echo esc_html( $block->post_title ?: 'Contact Me' ); ?></h3>
+                    <section class="lead-form-section block-lead-form glass-card" style="padding: 32px; text-align: left;">
+                        <h3 style="margin-bottom: 24px; text-align: center;"><?php echo esc_html( $block->post_title ?: 'Contact Me' ); ?></h3>
                         <form class="saas-dynamic-form" data-block-id="<?php echo $block->ID; ?>">
                             <input type="hidden" name="profile_id" value="<?php echo $profile_id; ?>">
                             <input type="hidden" name="block_id" value="<?php echo $block->ID; ?>">
                             <input type="hidden" name="security" value="<?php echo wp_create_nonce('saas_lead_nonce'); ?>">
                             <div style="display:none;"><input type="text" name="saas_honeypot"></div>
-                            <div class="input-group">
-                                <input type="text" name="name" placeholder="Your Name" required>
+                            <div style="margin-bottom: 16px;">
+                                <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff;">
                             </div>
-                            <div class="input-group">
-                                <input type="email" name="email" placeholder="Your Email" required>
+                            <div style="margin-bottom: 16px;">
+                                <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff;">
                             </div>
                             <?php if (get_post_meta($profile_id, '_saas_form_phone', true)) : ?>
-                                <div class="input-group">
-                                    <input type="text" name="phone" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_phone', true) ?: 'Phone Number'); ?>" <?php if(get_post_meta($profile_id, '_saas_form_req_phone', true)) echo 'required'; ?>>
+                                <div style="margin-bottom: 16px;">
+                                    <input type="text" name="phone" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_phone', true) ?: 'Phone Number'); ?>" <?php if(get_post_meta($profile_id, '_saas_form_req_phone', true)) echo 'required'; ?> style="width: 100%; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff;">
                                 </div>
                             <?php endif; ?>
                             <?php if (get_post_meta($profile_id, '_saas_form_msg', true)) : ?>
-                                <div class="input-group">
-                                    <textarea name="message" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_msg', true) ?: 'Your Message'); ?>" rows="3" <?php if(get_post_meta($profile_id, '_saas_form_req_msg', true)) echo 'required'; ?>></textarea>
+                                <div style="margin-bottom: 24px;">
+                                    <textarea name="message" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_msg', true) ?: 'Your Message'); ?>" rows="3" <?php if(get_post_meta($profile_id, '_saas_form_req_msg', true)) echo 'required'; ?> style="width: 100%; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff; font-family: inherit;"></textarea>
                                 </div>
                             <?php endif; ?>
-                            <button type="submit">Submit Request</button>
+                            <button type="submit" class="saas-link-btn style-featured" style="border: none; cursor: pointer;">Submit Request</button>
                         </form>
                         <?php
                         $footer = get_post_meta($block->ID, '_saas_link_desc', true);
