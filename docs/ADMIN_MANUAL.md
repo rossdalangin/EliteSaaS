@@ -1,21 +1,21 @@
 # 🛠️ ADMIN STRATEGIC MANUAL
 *How to Run and Scale Your Elite SaaS Empire.*
 
-## 1. MISSION: THE HIGH-LEVEL VIEW
-You aren't running a software company. You're running an **Authority Accelerator.** Your job is to ensure every consultant on your platform looks like a world-class expert.
+## 1. THE MISSION: YOU ARE THE ACCELERATOR
+You aren't just running a software company. You're running an **Authority Accelerator.** Your job is to make sure every expert on your platform looks like a million-dollar brand. When they win, you win.
 
-## 2. FINANCIAL REVENUE OPERATIONS
-- **Monitor the Pulse:** Check **SaaS Settings > Finances** daily.
-- **Affiliate Obligations:** Payouts are the fuel for your growth. When an affiliate makes you money, pay them fast. It keeps them hungry and loyal.
-- **Net Revenue:** Focus on the gap between gross sales and affiliate payouts. That's your war chest for scaling.
+## 2. REVENUE OPERATIONS (The Pulse)
+- **Check the Dashboard:** Look at **SaaS Settings > Finances** every morning. It's the health report of your empire.
+- **Pay Your Affiliates:** Payouts are the engine of your growth. When an affiliate sends you a customer, pay them fast. It makes them loyal and hungry to send you more.
+- **The Net Profit Gap:** Focus on the money you keep after paying affiliates. This is your "war chest" to build new features and scale your ads.
 
-## 3. THE "ELITE" CONTENT HUB
-- **Templates are Assets:** Don't just set them and forget them. Update the **Templates JSON** in the Content Hub whenever you see a new high-converting trend.
-- **Training is Retention:** Every video in the **Training Academy** reduces churn. If users know how to use the 'Smart Routing', they'll never leave.
+## 3. THE CONTENT HUB (Your Secret Weapon)
+- **Templates are your Gold:** Don't let them get dusty. Update the **Templates JSON** in the Content Hub whenever you see a new design trend. A fresh template can bring back hundreds of inactive users.
+- **Training is your Glue:** Every video in the **Training Academy** keeps users from leaving. If they know how to use the 'Smart Routing', they will never switch to a competitor.
 
-## 4. SYSTEM HEALTH & HYGIENE
-- **Run the Health Check:** Before any major promotion, verify the database and analytics tables are ready.
-- **License Strategy:** Use the **License Factory** to create "Golden Tickets." Give them to influencers in exchange for a shoutout. 10 ELITE keys to the right person can bring in 1,000 new users.
+## 4. SYSTEM HEALTH (The Foundation)
+- **The Health Check:** Before you launch a big ad campaign, run the System Health check. Make sure your database is ready for the surge of traffic.
+- **The License Factory:** Use this to create "Golden Tickets." Send 5 free ELITE keys to a big influencer in your niche. If they love it, they'll show it to their thousands of followers. One good influencer is worth more than $10,000 in ads.
 
 ---
 *Lead with Vision. Manage with Data.*
