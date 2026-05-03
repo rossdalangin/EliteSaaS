@@ -103,6 +103,12 @@ class Saas_Admin_Settings {
         update_option('saas_register_title', "Start Your 60-Second Launch");
         update_option('saas_pricing_title', "Invest in Your Growth");
 
+        // Set high-converting default design tokens
+        update_option('saas_default_theme', 'modern-glass');
+        update_option('saas_default_btn_shape', 'pill');
+        update_option('saas_default_shadow', 'soft');
+        update_option('saas_default_font', "'Inter', sans-serif");
+
         wp_redirect( admin_url('admin.php?page=saas_settings&pro_content_applied=1') );
         exit;
     }
