@@ -18,10 +18,19 @@
             <title><?php echo esc_html($custom_title ?: $profile->post_title . ' | Digital Business Card'); ?></title>
             <meta name="description" content="<?php echo esc_attr($custom_desc ?: wp_trim_words($p_meta['bio'], 25)); ?>">
             <?php if($custom_favicon) : ?><link rel="icon" href="<?php echo esc_url($custom_favicon); ?>"><?php endif; ?>
+
+            <!-- OpenGraph Meta Tags -->
             <meta property="og:title" content="<?php echo esc_html($profile->post_title); ?>">
             <meta property="og:description" content="<?php echo esc_attr($p_meta['headline']); ?>">
             <meta property="og:type" content="profile">
             <meta property="og:url" content="<?php echo home_url('/' . $slug); ?>">
+            <meta property="og:site_name" content="<?php bloginfo('name'); ?>">
+
+            <!-- Twitter Card Meta Tags -->
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="<?php echo esc_html($profile->post_title); ?>">
+            <meta name="twitter:description" content="<?php echo esc_attr($p_meta['headline']); ?>">
+
             <link rel="canonical" href="<?php echo home_url('/' . $slug); ?>">
             <?php
             $og_image = get_the_post_thumbnail_url($profile->ID, 'full');
@@ -51,6 +60,22 @@
     if ($slug) {
         $profile = saas_get_profile_by_slug($slug);
         if ($profile) {
+            $p_meta = saas_get_profile_meta($profile->ID);
+            $og_image = get_the_post_thumbnail_url($profile->ID, 'full');
+
+            // Schema.org Structured Data
+            $schema = [
+                "@context" => "https://schema.org",
+                "@type" => "Person",
+                "name" => $profile->post_title,
+                "jobTitle" => $p_meta['headline'],
+                "description" => $p_meta['bio'],
+                "url" => home_url('/' . $slug),
+            ];
+            if ($og_image) $schema["image"] = $og_image;
+
+            echo '<script type="application/ld+json">' . json_encode($schema) . '</script>';
+
             $payments = new Saas_Payments();
             if ($payments->is_pro_user($profile->post_author)) {
                 echo get_post_meta($profile->ID, '_saas_header_scripts', true);
@@ -84,7 +109,7 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
                 ?>
             </div>
 
-            <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+            <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
