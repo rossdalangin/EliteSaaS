@@ -53,9 +53,14 @@ Version: 1.1
 /* --- Base Styles --- */
 * { box-sizing: border-box; }
 
-body {
-    margin: 0;
+html, body {
+    width: 100% !important;
+    margin: 0 !important;
     padding: 0;
+    overflow-x: hidden;
+}
+
+body {
     font-family: var(--font-family, 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
     background-color: var(--bg-color);
     background-attachment: fixed;
@@ -63,6 +68,10 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -543,6 +552,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transition: var(--transition-base);
+    width: 100%;
 }
 
 .site-header.is-scrolled {
@@ -553,7 +563,8 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 .header-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -561,6 +572,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
     width: 100%;
     min-height: 80px;
     transition: var(--transition-base);
+    box-sizing: border-box;
 }
 
 .site-header.is-scrolled .header-container {
@@ -568,6 +580,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
 }
 
 .saas-global-header {
+    width: 100%;
     text-align: center;
     padding: 8px 0;
     background: var(--primary-dark);
@@ -598,6 +611,12 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 .site-branding-link:hover {
     transform: scale(1.05);
+}
+
+.main-navigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .primary-menu-list {
@@ -640,33 +659,44 @@ body.theme-midnight-neon .saas-link-btn:hover {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex: 0 0 auto;
+    justify-content: flex-end;
 }
 
 .header-cta-link {
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.85rem;
     transition: var(--transition-fast);
-    padding: 10px 20px;
+    padding: 0 24px;
     border-radius: var(--radius-full);
-    border: 1px solid transparent;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    background: transparent;
 }
 
 .header-cta-link:hover {
     color: var(--primary-color);
     border-color: var(--primary-color);
+    background: rgba(108, 92, 231, 0.05);
 }
 
 .btn-header-cta {
-    padding: 10px 24px;
+    padding: 0 28px;
     font-size: 0.85rem;
+    font-weight: 800;
     border-radius: var(--radius-full);
     white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 44px;
+    width: auto !important;
+    border: 2px solid var(--primary-color);
 }
 
 .header-cta .saas-link-btn {
@@ -754,8 +784,15 @@ body.theme-midnight-neon .saas-link-btn:hover {
     line-height: 1.4;
 }
 
+.hero-claim-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .hero-claim-form {
-    display: inline-flex;
+    display: flex;
     background: #fff;
     padding: 10px;
     border-radius: var(--radius-full);
@@ -764,6 +801,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
     width: 100%;
     max-width: 600px;
     text-align: left;
+    margin: 0 auto;
 }
 
 .hero-claim-prefix {
@@ -1161,6 +1199,13 @@ body.theme-midnight-neon .saas-link-btn:hover {
         margin-top: 40px;
         padding-top: 40px;
         border-top: 1px solid var(--border-color);
+        align-items: center;
+    }
+
+    .mobile-only-cta a {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
 
     body.menu-open {
@@ -2005,8 +2050,8 @@ input, select, textarea, button, .saas-link-btn, .hero-claim-btn {
 .contact-textarea { min-height: 160px; }
 .contact-footer { margin-top: 48px; display: flex; justify-content: center; gap: 40px; color: var(--text-lighter); font-weight: 600; }
 
-.footer-main { padding: 100px 0 50px; background: #fff; border-top: 1px solid #eee; }
-.footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 20px; }
+.footer-main { padding: 100px 0 50px; background: #fff; border-top: 1px solid #eee; width: 100%; }
+.footer-container { max-width: 1200px; margin-left: auto !important; margin-right: auto !important; display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 20px; width: 100%; box-sizing: border-box; }
 .footer-branding { flex: 1; min-width: 300px; margin-bottom: 40px; }
 .footer-logo-text { font-size: 1.5rem; font-weight: 800; color: #333; margin-bottom: 20px; }
 .footer-tagline { color: #666; font-size: 0.95rem; max-width: 300px; line-height: 1.6; }
