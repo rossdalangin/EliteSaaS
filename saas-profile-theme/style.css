@@ -524,7 +524,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 /* Global Navigation Styles */
 .site-header {
-    background: var(--bg-color);
+    background: rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
@@ -532,6 +532,13 @@ body.theme-midnight-neon .saas-link-btn:hover {
     padding: 0;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    transition: var(--transition-base);
+}
+
+.site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-md);
+    padding: 4px 0;
 }
 
 .header-container {
@@ -540,63 +547,102 @@ body.theme-midnight-neon .saas-link-btn:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
+    padding: 0 24px;
     width: 100%;
-    min-height: 72px;
+    min-height: 80px;
+    transition: var(--transition-base);
+}
+
+.site-header.is-scrolled .header-container {
+    min-height: 64px;
 }
 
 .saas-global-header {
     text-align: center;
-    padding: 12px 0;
-    background: #f8fafc;
-    border-bottom: 1px solid var(--border-color);
+    padding: 8px 0;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .global-logo-img {
-    max-height: 32px;
+    max-height: 24px;
+    filter: brightness(0) invert(1);
     vertical-align: middle;
 }
 
 .site-branding-link {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 900;
     text-decoration: none;
     color: var(--text-color);
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    transition: var(--transition-bounce);
+}
+
+.site-branding-link:hover {
+    transform: scale(1.05);
 }
 
 .primary-menu-list {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 32px;
     margin: 0;
     padding: 0;
     align-items: center;
 }
 
 .primary-menu-list a {
-    color: var(--text-light);
-    font-weight: 600;
-    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    position: relative;
+    padding: 8px 0;
+}
+
+.primary-menu-list a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition-base);
 }
 
 .primary-menu-list a:hover {
     color: var(--primary-color);
 }
 
+.primary-menu-list a:hover::after {
+    width: 100%;
+}
+
 .header-cta-link {
     text-decoration: none;
-    color: var(--text-light);
-    font-weight: 600;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 0.9rem;
     margin-right: 24px;
+    transition: var(--transition-fast);
+}
+
+.header-cta-link:hover {
+    color: var(--primary-color);
 }
 
 .btn-header-cta {
-    padding: 10px 24px;
-    font-size: 0.9rem;
+    padding: 12px 28px;
+    font-size: 0.85rem;
+    border-radius: var(--radius-full);
 }
 /* --- Landing Page Components --- */
 
@@ -1038,9 +1084,10 @@ body.theme-midnight-neon .saas-link-btn:hover {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background: var(--bg-color);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
         z-index: 1050;
-        transition: right 0.4s cubic-bezier(0.77,0.2,0.05,1.0);
+        transition: right 0.5s cubic-bezier(0.8, 0, 0.2, 1);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1057,13 +1104,18 @@ body.theme-midnight-neon .saas-link-btn:hover {
     .primary-menu-list {
         flex-direction: column;
         align-items: center;
-        gap: 24px;
+        gap: 32px;
         text-align: center;
     }
 
     .primary-menu-list a {
-        font-size: 1.5rem;
-        font-weight: 700;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .primary-menu-list a::after {
+        height: 4px;
     }
 
     .mobile-only-cta {
@@ -1177,6 +1229,8 @@ input, select, textarea, button, .saas-link-btn, .hero-claim-btn {
 
 /* --- Spacing Utilities --- */
 .mt-10 { margin-top: 10px; }
+.ml-10 { margin-left: 10px; }
+.py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
 .mt-15 { margin-top: 15px; }
 .mt-20 { margin-top: 20px; }
 .mt-24 { margin-top: 24px; }

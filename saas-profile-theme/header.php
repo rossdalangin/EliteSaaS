@@ -93,7 +93,10 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
     $global_logo = get_option('saas_global_logo');
     if ($global_logo) : ?>
         <div class="saas-global-header">
-            <img src="<?php echo esc_url($global_logo); ?>" alt="SaaS Logo" class="global-logo-img">
+            <div class="header-container py-0 flex-center">
+                <img src="<?php echo esc_url($global_logo); ?>" alt="SaaS Logo" class="global-logo-img">
+                <span class="ml-10">THE ELITE STANDARD</span>
+            </div>
         </div>
     <?php endif; ?>
 
@@ -151,6 +154,7 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const siteNavigation = document.getElementById('site-navigation');
+    const siteHeader = document.querySelector('.site-header');
 
     if (menuToggle && siteNavigation) {
         menuToggle.addEventListener('click', function() {
@@ -170,5 +174,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            siteHeader?.classList.add('is-scrolled');
+        } else {
+            siteHeader?.classList.remove('is-scrolled');
+        }
+    });
 });
 </script>
