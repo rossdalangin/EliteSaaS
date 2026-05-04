@@ -518,12 +518,14 @@ body.theme-midnight-neon .saas-link-btn:hover {
 /* --- Standard Pages --- */
 .standard-page-container {
     max-width: 900px;
-    margin: 80px auto;
+    margin: 80px auto !important;
     padding: 60px;
     background: var(--card-bg);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--border-color);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -568,11 +570,11 @@ body.theme-midnight-neon .saas-link-btn:hover {
 .saas-global-header {
     text-align: center;
     padding: 8px 0;
-    background: var(--primary-color);
+    background: var(--primary-dark);
     color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -637,29 +639,38 @@ body.theme-midnight-neon .saas-link-btn:hover {
 .header-cta {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
 }
 
 .header-cta-link {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: var(--transition-fast);
-    padding: 10px 16px;
-    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
 }
 
 .header-cta-link:hover {
     color: var(--primary-color);
-    background: var(--bg-color);
+    border-color: var(--primary-color);
 }
 
 .btn-header-cta {
-    padding: 12px 28px;
+    padding: 10px 24px;
     font-size: 0.85rem;
     border-radius: var(--radius-full);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+}
+
+.header-cta .saas-link-btn {
+    margin-top: 0 !important;
 }
 /* --- Landing Page Components --- */
 
@@ -671,6 +682,8 @@ body.theme-midnight-neon .saas-link-btn:hover {
     background: var(--bg-color);
     position: relative;
     overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .animated-mesh-bg {
@@ -710,11 +723,13 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 .landing-content {
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     text-align: center;
     z-index: 1;
     padding: 120px 24px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .landing-title {
@@ -1131,6 +1146,7 @@ body.theme-midnight-neon .saas-link-btn:hover {
         font-size: 2rem;
         font-weight: 800;
         letter-spacing: -1px;
+        padding: 12px 0;
     }
 
     .primary-menu-list a::after {
@@ -1138,9 +1154,13 @@ body.theme-midnight-neon .saas-link-btn:hover {
     }
 
     .mobile-only-cta {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 40px;
+        padding-top: 40px;
+        border-top: 1px solid var(--border-color);
     }
 
     body.menu-open {
@@ -1979,7 +1999,7 @@ input, select, textarea, button, .saas-link-btn, .hero-claim-btn {
 .lh-1-6 { line-height: 1.6; }
 
 /* Custom Contact/Auth/Footer classes */
-.contact-container { max-width: 800px; margin: 0 auto; padding: 64px; text-align: center; }
+.contact-container { max-width: 800px; margin: 0 auto !important; padding: 64px; text-align: center; width: 100%; box-sizing: border-box; }
 .contact-label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--text-color); }
 .contact-input { width: 100%; padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: inherit; font-size: 1rem; }
 .contact-textarea { min-height: 160px; }
@@ -2001,7 +2021,7 @@ input, select, textarea, button, .saas-link-btn, .hero-claim-btn {
 .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding: 30px 20px 0; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.85rem; color: #999; }
 
 .auth-main { justify-content: center; padding: 64px 24px; }
-.auth-card { width: 100%; max-width: 440px; padding: 48px; text-align: center; position: relative; z-index: 1; }
+.auth-card { width: 100%; max-width: 440px; margin-left: auto !important; margin-right: auto !important; padding: 48px; text-align: center; position: relative; z-index: 1; box-sizing: border-box; }
 
 .clean-page-card { max-width: 700px; margin: 100px auto; padding: 0 40px; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 
