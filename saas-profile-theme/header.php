@@ -92,8 +92,8 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
     <?php
     $global_logo = get_option('saas_global_logo');
     if ($global_logo) : ?>
-        <div class="saas-global-header" style="text-align:center; padding:20px 0;">
-            <img src="<?php echo esc_url($global_logo); ?>" alt="SaaS Logo" style="max-height:40px;">
+        <div class="saas-global-header">
+            <img src="<?php echo esc_url($global_logo); ?>" alt="SaaS Logo" class="global-logo-img">
         </div>
     <?php endif; ?>
 
@@ -104,7 +104,7 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
                 if ( has_custom_logo() ) {
                     the_custom_logo();
                 } else {
-                    echo '<a href="' . esc_url( home_url( '/' ) ) . '" style="font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--text-color);">' . get_bloginfo( 'name' ) . '</a>';
+                    echo '<a href="' . esc_url( home_url( '/' ) ) . '" class="site-branding-link">' . get_bloginfo( 'name' ) . '</a>';
                 }
                 ?>
             </div>
@@ -127,7 +127,7 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
                             <a href="<?php echo home_url('/dashboard'); ?>">Dashboard</a>
                         <?php else : ?>
                             <a href="<?php echo home_url('/login'); ?>">Login</a>
-                            <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured" style="margin-top: 10px;">Get Started</a>
+                            <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured mt-10">Get Started</a>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -135,10 +135,10 @@ if ( ! get_query_var( 'saas_profile' ) ) : ?>
 
             <div class="header-cta">
                 <?php if ( is_user_logged_in() ) : ?>
-                    <a href="<?php echo home_url('/dashboard'); ?>" class="saas-link-btn style-featured" style="padding: 10px 24px; font-size: 0.9rem;">Dashboard</a>
+                    <a href="<?php echo home_url('/dashboard'); ?>" class="saas-link-btn style-featured btn-header-cta">Dashboard</a>
                 <?php else : ?>
-                    <a href="<?php echo home_url('/login'); ?>" style="text-decoration: none; color: var(--text-light); font-weight: 600; margin-right: 24px;">Login</a>
-                    <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured" style="padding: 10px 24px; font-size: 0.9rem;">Get Started</a>
+                    <a href="<?php echo home_url('/login'); ?>" class="header-cta-link">Login</a>
+                    <a href="<?php echo home_url('/register'); ?>" class="saas-link-btn style-featured btn-header-cta">Get Started</a>
                 <?php endif; ?>
             </div>
         </div>

@@ -9,20 +9,20 @@ get_header();
 ?>
 
 <main id="directory-page" class="site-main">
-    <section class="landing-content" style="padding-top: 100px;">
-        <div style="text-align:center; margin-bottom:64px;">
+    <section class="landing-content pt-100">
+        <div class="text-center mb-60">
             <h1 class="landing-title">Discover Elite Creators</h1>
             <p class="landing-hero-text">Explore the best digital identities built with our platform.</p>
 
-            <div class="directory-search" style="margin-top:48px; max-width:560px; margin-left:auto; margin-right:auto;">
-                <form action="" method="GET" class="hero-claim-form" style="padding: 6px;">
-                    <input type="text" name="s" placeholder="Search creators by name..." value="<?php echo esc_attr($_GET['s'] ?? ''); ?>" style="flex:1; border:none; padding:12px 24px; outline:none; font-weight:600; background:transparent; font-family: inherit; font-size: 1.1rem;">
+            <div class="directory-search mt-40 max-w-560 mx-auto">
+                <form action="" method="GET" class="hero-claim-form p-6">
+                    <input type="text" name="s" placeholder="Search creators by name..." value="<?php echo esc_attr($_GET['s'] ?? ''); ?>" class="hero-claim-input pl-24">
                     <?php if($active_niche = $_GET['niche'] ?? '') : ?><input type="hidden" name="niche" value="<?php echo esc_attr($active_niche); ?>"><?php endif; ?>
-                    <button type="submit" class="hero-claim-btn" style="padding: 12px 32px;">Search</button>
+                    <button type="submit" class="hero-claim-btn btn-search">Search</button>
                 </form>
             </div>
 
-            <div class="directory-filters" style="margin-top:32px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+            <div class="directory-filters mt-32 flex-center gap-12 flex-wrap">
                 <?php
                 $active_niche = $_GET['niche'] ?? '';
                 $niches = [
@@ -37,15 +37,16 @@ get_header();
                 foreach($niches as $slug => $label) :
                     $is_active = ($active_niche === $slug);
                     $url = $slug ? add_query_arg('niche', $slug) : remove_query_arg('niche');
+                    $filter_class = 'filter-link' . ($is_active ? ' is-active' : '');
                 ?>
-                    <a href="<?php echo esc_url($url); ?>" style="padding:10px 20px; border-radius:var(--radius-full); text-decoration:none; font-weight:700; font-size:0.9rem; transition:var(--transition-base); <?php echo $is_active ? 'background:var(--primary-color); color:#fff;' : 'background:#fff; border:1px solid var(--border-color); color:var(--text-light);'; ?>">
+                    <a href="<?php echo esc_url($url); ?>" class="<?php echo $filter_class; ?>">
                         <?php echo esc_html($label); ?>
                     </a>
                 <?php endforeach; ?>
             </div>
         </div>
 
-        <div class="directory-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:32px;">
+        <div class="directory-grid">
             <?php
             $args = [
                 'post_type' => 'saas_profile',
@@ -72,28 +73,25 @@ get_header();
                     $p_meta = saas_get_profile_meta($p->ID);
                     $p_niche = get_post_meta($p->ID, '_saas_niche', true);
                     ?>
-                    <a href="<?php echo home_url('/' . $p->post_name); ?>" class="profile-card feature-card-light" style="text-decoration:none; padding:40px; text-align:center; position:relative; display: block; transition: var(--transition-bounce);">
+                    <a href="<?php echo home_url('/' . $p->post_name); ?>" class="profile-card-directory inherit-link">
                         <?php if($p_niche): ?>
-                            <span class="badge-ui" style="position:absolute; top:20px; right:20px; font-size:0.65rem;"><?php echo $p_niche; ?></span>
+                            <span class="badge-ui badge-directory"><?php echo $p_niche; ?></span>
                         <?php endif; ?>
-                        <div style="margin-bottom:24px;">
+                        <div class="mb-24">
                             <?php if (has_post_thumbnail($p->ID)) : ?>
-                                <?php echo get_the_post_thumbnail($p->ID, 'thumbnail', ['style' => 'width:100px; height:100px; border-radius:50%; object-fit:cover; border:4px solid var(--primary-color); box-shadow: var(--shadow-md);']); ?>
+                                <?php echo get_the_post_thumbnail($p->ID, 'thumbnail', ['class' => 'avatar-directory']); ?>
                             <?php else : ?>
-                                <div style="width:100px; height:100px; border-radius:50%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem; border: 4px solid var(--primary-color);">👤</div>
+                                <div class="directory-avatar-wrapper">👤</div>
                             <?php endif; ?>
                         </div>
-                        <h3 style="margin:0; font-size:1.4rem; font-weight:800; color: var(--text-color);"><?php echo esc_html($p->post_title); ?></h3>
-                        <p style="font-size:0.95rem; color:var(--text-light); margin:12px 0;"><?php echo esc_html($p_meta['headline']); ?></p>
-                        <div style="margin-top:24px; font-weight:800; color:var(--primary-color); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">View Profile →</div>
+                        <h3 class="mb-0 text-xl font-bold"><?php echo esc_html($p->post_title); ?></h3>
+                        <p class="text-sm color-light mt-10 mb-10"><?php echo esc_html($p_meta['headline']); ?></p>
+                        <div class="directory-view-link">View Profile →</div>
                     </a>
-                    <style>
-                    .profile-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-xl); border-color: var(--primary-light); }
-                    </style>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div style="grid-column: 1 / -1; padding: 64px; background: var(--bg-color); border-radius: var(--radius-xl); text-align: center; color: var(--text-lighter);">
-                    <p style="margin: 0; font-weight: 700; font-size: 1.25rem;">No public profiles found matching your search.</p>
+                <div class="no-results-box">
+                    <p class="mb-0 font-bold text-xl">No public profiles found matching your search.</p>
                 </div>
             <?php endif; ?>
         </div>

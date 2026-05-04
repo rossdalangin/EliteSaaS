@@ -5,17 +5,17 @@
 
 get_header(); ?>
 
-<main id="clean-layout" class="site-main" style="max-width: 700px; margin: 100px auto; padding: 0 40px; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+<main id="clean-layout" class="site-main clean-layout-container">
     <?php
     while ( have_posts() ) :
         the_post();
         ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="padding: 60px 0;">
-            <header class="clean-header" style="text-align: center; margin-bottom: 40px;">
-                <?php the_title( '<h1 class="clean-title" style="font-weight:800; font-size:2.5rem;">', '</h1>' ); ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class('clean-layout-article'); ?>>
+            <header class="clean-header clean-layout-header">
+                <?php the_title( '<h1 class="clean-title clean-layout-title">', '</h1>' ); ?>
             </header>
 
-            <div class="clean-content" style="line-height: 1.8; font-size: 1.15rem; color: #444;">
+            <div class="clean-content clean-layout-content">
                 <?php the_content(); ?>
             </div>
         </article>
