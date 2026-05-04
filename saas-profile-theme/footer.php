@@ -4,7 +4,9 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-?>
+
+// Hide global footer on user profile pages
+if ( ! get_query_var( 'saas_profile' ) ) : ?>
 
 <footer id="colophon" class="footer-main">
     <div class="footer-container">
@@ -60,6 +62,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
     </div>
 </footer>
+
+<?php endif; // End if !get_query_var('saas_profile') ?>
+
+<?php
+// Restore Pro feature for custom footer scripts
+$slug = get_query_var( 'saas_profile' );
+if ($slug) {
+    $profile = saas_get_profile_by_slug($slug);
+    if ($profile) {
+        $payments = new Saas_Payments();
+        if ($payments->is_pro_user($profile->post_author)) {
+            echo get_post_meta($profile->ID, '_saas_footer_scripts', true);
+        }
+    }
+}
+?>
 
 <?php wp_footer(); ?>
 </body>

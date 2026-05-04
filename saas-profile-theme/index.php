@@ -290,7 +290,7 @@ include __DIR__ . '/header.php';
                         <h3><?php echo esc_html($block->post_title); ?></h3>
                         <form class="newsletter-form">
                             <input type="email" placeholder="Email Address" required class="saas-input mb-15">
-                            <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer" style="background:var(--primary-dark);">Join</button>
+                            <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-dark">Join</button>
                         </form>
                     </div>
                 <?php elseif ($type === 'milestone') : ?>
@@ -457,7 +457,7 @@ include __DIR__ . '/header.php';
             <form id="saas-pass-form" class="mt-20">
                 <input type="hidden" id="modal-link-id">
                 <input type="password" id="modal-pass-input" placeholder="Enter Password" class="saas-input mb-15">
-                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer" style="background:var(--primary-color);">Unlock Content</button>
+                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-color">Unlock Content</button>
             </form>
             <button class="close-pass-modal modal-close-btn">Cancel</button>
         </div>
@@ -468,14 +468,14 @@ include __DIR__ . '/header.php';
 // Profile Password Protection Logic
 $profile_pass = get_post_meta($profile_id, '_saas_profile_password', true);
 if ($is_pro && $profile_pass) : ?>
-    <div id="profile-gate" class="saas-theme-modal" style="background:#fff; z-index:99999;">
+    <div id="profile-gate" class="saas-theme-modal bg-white-pure z-99999">
         <div class="container-narrow p-40 text-center">
             <div class="modal-icon">🔐</div>
             <h2>Private Profile</h2>
             <p>Please enter the password to view this digital identity.</p>
             <form id="profile-gate-form">
                 <input type="password" id="gate-pass" placeholder="Password" required class="saas-input mb-15">
-                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer" style="background:var(--primary-color);">Unlock Profile</button>
+                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-color">Unlock Profile</button>
             </form>
             <div id="gate-error" class="color-red mt-10 display-none">Incorrect password.</div>
         </div>

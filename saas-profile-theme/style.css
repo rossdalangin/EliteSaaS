@@ -26,6 +26,9 @@ Version: 1.1
     --glass-border: rgba(255, 255, 255, 0.3);
     --glass-blur: 12px;
 
+    /* Semantic Primary Variations */
+    --primary-dark-alpha: rgba(72, 52, 212, 0.1);
+
     /* Spacing & Radii */
     --radius-sm: 8px;
     --radius-md: 16px;
@@ -131,26 +134,29 @@ body.theme-luxury .saas-link-btn:hover {
 
 /* Modern Glass Theme */
 body.theme-modern-glass {
-    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%) fixed;
+    background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%) fixed;
     --bg-color: transparent;
     --text-color: #1e293b;
     --text-light: #475569;
     --card-bg: rgba(255, 255, 255, 0.4);
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-blur: 24px;
     --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --primary-color: #764ba2;
 }
 
 /* Midnight Neon Theme */
 body.theme-midnight-neon {
-    background: #020617 fixed;
-    --primary-color: #38bdf8;
-    --accent-color: #f472b6;
+    background: radial-gradient(circle at top right, #1e1b4b, #020617) fixed;
+    --primary-color: #00f2ff;
+    --accent-color: #ff00ff;
     --text-color: #f1f5f9;
     --text-light: #94a3b8;
-    --card-bg: #0f172a;
-    --glass-bg: rgba(15, 23, 42, 0.8);
-    --glass-border: rgba(56, 189, 248, 0.3);
+    --card-bg: rgba(15, 23, 42, 0.6);
+    --glass-bg: rgba(15, 23, 42, 0.4);
+    --glass-border: rgba(0, 242, 255, 0.3);
+    --glass-blur: 16px;
 }
 body.theme-midnight-neon .saas-link-btn {
     border: 1px solid var(--primary-color);
@@ -236,6 +242,24 @@ body.theme-midnight-neon .saas-link-btn:hover {
     background: var(--card-bg);
 }
 
+.saas-link-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(30deg);
+    transition: none;
+    pointer-events: none;
+}
+
+.saas-link-btn:hover::after {
+    left: 120%;
+    transition: all 0.6s ease-in-out;
+}
+
 .btn-thumb {
     width: 40px;
     height: 40px;
@@ -273,6 +297,17 @@ body.theme-midnight-neon .saas-link-btn:hover {
     animation: rainbow 8s ease infinite;
     color: #fff;
     border: none;
+}
+
+.style-glass-vibrant .saas-link-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+.style-glass-vibrant .saas-link-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Animations */
@@ -391,6 +426,11 @@ body.theme-midnight-neon .saas-link-btn:hover {
 .social-icon:hover { transform: translateY(-5px); background: #fff; color: var(--primary-color); box-shadow: var(--shadow-md); }
 
 /* --- Utils & Effects --- */
+
+.bg-primary-dark { background: var(--primary-dark) !important; }
+.bg-primary-color { background: var(--primary-color) !important; }
+.bg-white-pure { background: #fff !important; }
+.z-99999 { z-index: 99999 !important; }
 
 .mesh-bg {
     position: fixed;
