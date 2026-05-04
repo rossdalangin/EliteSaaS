@@ -169,6 +169,14 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 /* --- Layout Components --- */
 
+.site-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
 #profile-container {
     width: 100%;
     max-width: 620px;
@@ -626,23 +634,32 @@ body.theme-midnight-neon .saas-link-btn:hover {
     width: 100%;
 }
 
+.header-cta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 .header-cta-link {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 700;
     font-size: 0.9rem;
-    margin-right: 24px;
     transition: var(--transition-fast);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
 }
 
 .header-cta-link:hover {
     color: var(--primary-color);
+    background: var(--bg-color);
 }
 
 .btn-header-cta {
     padding: 12px 28px;
     font-size: 0.85rem;
     border-radius: var(--radius-full);
+    white-space: nowrap;
 }
 /* --- Landing Page Components --- */
 
@@ -693,9 +710,11 @@ body.theme-midnight-neon .saas-link-btn:hover {
 
 .landing-content {
     max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
     z-index: 1;
     padding: 120px 24px;
+    width: 100%;
 }
 
 .landing-title {
