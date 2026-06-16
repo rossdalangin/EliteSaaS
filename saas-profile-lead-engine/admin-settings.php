@@ -57,37 +57,37 @@ class Saas_Admin_Settings {
 
         $pricing = [
             [
-                'name' => 'Free', 'price' => '$0', 'period' => 'forever', 'cta' => 'Join for Free', 'link' => '/register', 'style' => 'light',
-                'features' => ['1 Profile', 'Standard Blocks', 'Basic Analytics', 'Community Support']
+                'name' => 'Free', 'price' => '$0', 'period' => 'forever', 'cta' => 'Join the Elite Free', 'link' => '/register', 'style' => 'light',
+                'features' => ['1 Authority Engine', 'Standard Blocks', 'Basic Tracking', 'Community Access']
             ],
             [
-                'name' => 'Elite Pro', 'price' => '$19', 'period' => '/mo', 'cta' => 'Upgrade to Pro', 'link' => '/register?plan=pro', 'style' => 'featured', 'badge' => 'FOR THE ELITE 1%',
-                'features' => ['Everything in Free', 'Unlimited Premium Blocks', 'Lead Generation CRM', 'Custom Domain Mapping', 'Whitelabel Branding', 'Priority Support']
+                'name' => 'Elite Pro', 'price' => '$19', 'period' => '/mo', 'cta' => 'Yes! Upgrade My Engine', 'link' => '/register?plan=pro', 'style' => 'featured', 'badge' => 'FOR THE ELITE 1%',
+                'features' => ['Everything in Free', 'Unlimited Premium Blocks', 'Lead Generation CRM', 'Custom Domain Mapping', 'Whitelabel (No Branding)', 'Priority VIP Support']
             ],
             [
-                'name' => 'Agency Unlimited', 'price' => '$49', 'period' => '/mo', 'cta' => 'Go Unlimited', 'link' => '/register?plan=agency', 'style' => 'light',
-                'features' => ['Everything in Pro', 'Unlimited Sub-accounts', 'API Access', 'White-label Client Funnels', 'Dedicated Account Manager']
+                'name' => 'Agency Unlimited', 'price' => '$49', 'period' => '/mo', 'cta' => 'Scale My Empire', 'link' => '/register?plan=agency', 'style' => 'light',
+                'features' => ['Everything in Pro', 'Unlimited Client Funnels', 'API & Webhook Access', 'White-label Client Dashboards', 'Dedicated Growth Manager']
             ]
         ];
 
         $how_it_works = [
-            ['title' => 'Claim Your Link', 'desc' => 'Register your unique URL in seconds. My system makes it easy to claim your digital home.'],
-            ['title' => 'Build Your Funnel', 'desc' => 'Drag and drop blocks designed for consultants. Video, forms, and trust elements in one place.'],
-            ['title' => 'Launch & Help More People', 'desc' => 'Start capturing leads on autopilot. Turn your skills into a system that scales your impact.']
+            ['title' => 'Claim Your Real Estate', 'desc' => 'Secure your unique URL in under 60 seconds. This is your brand\'s digital home.'],
+            ['title' => 'Build Your Path', 'desc' => 'Ditch the messy list. Use our drag-and-drop wizard to create a journey that turns visitors into leads.'],
+            ['title' => 'Own Your Future', 'desc' => 'Launch your engine and start capturing high-ticket inquiries while you sleep. Stop building on rented land.']
         ];
 
         $comparison = [
             ['label' => 'Lead Capture Forms', 'basic' => '✗ No', 'elite' => '✓ Integrated CRM'],
-            ['label' => 'A/B Testing CTAs', 'basic' => '✗ No', 'elite' => '✓ Smart Logic'],
-            ['label' => 'NFC Card Sync', 'basic' => '✗ No', 'elite' => '✓ Native Support'],
-            ['label' => 'Custom Domains', 'basic' => '✗ No', 'elite' => '✓ Full CNAME Support'],
-            ['label' => 'Consultant Branding', 'basic' => 'Basic', 'elite' => '✓ Premium Glassy/Luxury Themes']
+            ['label' => 'A/B Testing CTAs', 'basic' => '✗ No', 'elite' => '✓ Smart Optimization'],
+            ['label' => 'NFC Card Sync', 'basic' => '✗ No', 'elite' => '✓ Instant Networking'],
+            ['label' => 'Real Ownership', 'basic' => '✗ Rented', 'elite' => '✓ Your Domain'],
+            ['label' => 'Expert Branding', 'basic' => 'Basic', 'elite' => '✓ Luxury/Glass Aesthetics']
         ];
 
         update_option('saas_home_title', 'Stop Leaking High-Ticket Leads From Your Bio Link.');
-        update_option('saas_home_hero', 'Ditch the digital graveyard. Build an Authority Engine that captures leads, automates trust, and represents the Elite professional you actually are.');
+        update_option('saas_home_hero', 'Most "link-in-bio" tools are digital graveyards. We built an Authority Engine that captures leads, automates trust, and represents the Elite expert you actually are.');
         update_option('saas_home_cta', 'Yes! Build My Authority Engine');
-        update_option('saas_home_founder_letter', "I was posting every day. 50k followers. But my bank account didn't match my reach. I realized I was sending traffic to a 'link tree' that offered too many choices. People were curious, but they weren't inquiring. I built Elite Funnels to create a path, not a list. The first day I switched, I got 3 discovery call bookings. You work too hard to lose clients at the finish line. Let's build your engine together.");
+        update_option('saas_home_founder_letter', "I remember being exactly where you are. I had 50k followers. I was 'famous' on social media. But my bank account didn't match my reach. I was sending all my traffic to a standard link tree. Then I had an epiphany: An expert doesn't give a list of options. An expert provides a path. I built the first version of the Authority Engine for myself. Within 48 hours, I captured more leads than I had in the previous 6 months combined. You aren't bad at business; you just have a broken vehicle. Let's fix it.");
         update_option('saas_home_testimonials_title', 'What Elite Consultants Are Saying');
         update_option('saas_home_features', json_encode($features));
         update_option('saas_home_benefits', json_encode($benefits));
@@ -102,6 +102,12 @@ class Saas_Admin_Settings {
         update_option('saas_login_title', "Welcome Back, Elite");
         update_option('saas_register_title', "Start Your 60-Second Launch");
         update_option('saas_pricing_title', "Invest in Your Growth");
+
+        // Set high-converting default design tokens
+        update_option('saas_default_theme', 'modern-glass');
+        update_option('saas_default_btn_shape', 'pill');
+        update_option('saas_default_shadow', 'soft');
+        update_option('saas_default_font', "'Inter', sans-serif");
 
         wp_redirect( admin_url('admin.php?page=saas_settings&pro_content_applied=1') );
         exit;

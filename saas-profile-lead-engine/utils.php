@@ -183,7 +183,7 @@ function saas_get_default_templates() {
         'coach' => [
             'headline' => 'Helping you double your revenue in 90 days. 🚀',
             'bio' => 'Certified high-performance coach. I work with CEOs and founders to scale their impact.',
-            'color' => '#6c5ce7', 'theme' => 'light', 'shadow' => 'soft',
+            'color' => '#6c5ce7', 'theme' => 'modern-glass', 'shadow' => 'soft',
             'links' => [
                 ['title' => '👉 Free Strategy Session', 'url' => '#', 'type' => 'button', 'style' => 'featured'],
                 ['title' => 'Watch Case Study', 'url' => 'https://youtube.com', 'type' => 'video'],
@@ -194,7 +194,7 @@ function saas_get_default_templates() {
         'business' => [
             'headline' => 'Innovative Solutions for Global Enterprise. 🏢',
             'bio' => 'Streamlining operations and driving growth through technology.',
-            'color' => '#0073aa', 'theme' => 'light', 'shadow' => 'hard',
+            'color' => '#0073aa', 'theme' => 'modern-glass', 'shadow' => 'soft',
             'links' => [
                 ['title' => 'Book a Consultation', 'url' => '#', 'type' => 'button', 'style' => 'featured'],
                 ['title' => 'Our Core Services', 'url' => '#', 'type' => 'pricing', 'extra' => "$199/hr\nStrategy Audit\nProcess Automation\nCustom Dev"],

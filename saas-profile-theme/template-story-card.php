@@ -1,96 +1,107 @@
 <?php
 /**
- * Template Name: Story Card Download View
+ * Template Name: Story Card (Vertical 1080x1920)
+ * Description: Special template for generating vertical social media assets.
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$profile_id = isset($_GET['profile_id']) ? intval($_GET['profile_id']) : 0;
-$profile = get_post($profile_id);
+// Get Profile from Query Var
+$slug = isset($_GET['profile']) ? $_GET['profile'] : get_query_var( 'saas_profile' );
+$profile = null;
 
-if (!$profile || $profile->post_type !== 'saas_profile') {
-    wp_die('Invalid profile');
+if ( $slug ) {
+    $profile = get_posts([
+        'name'        => $slug,
+        'post_type'   => 'saas_profile',
+        'post_status' => 'publish',
+        'numberposts' => 1
+    ]);
+    $profile = ! empty($profile) ? $profile[0] : null;
 }
 
-$meta = saas_get_profile_meta($profile_id);
-$theme_color = get_post_meta($profile_id, '_saas_theme_color', true) ?: '#6c5ce7';
+if (!$profile) {
+    echo "Please specify a valid profile.";
+    exit;
+}
+
+$profile_id = $profile->ID;
+$meta = saas_get_profile_meta( $profile_id );
+$bg_color = get_post_meta( $profile_id, '_saas_bg_color', true ) ?: '#6c5ce7';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>Story Card - <?php echo esc_html($profile->post_title); ?></title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Inter', sans-serif; overflow: hidden; background: #111; }
-        .story-card {
-            width: 1080px;
-            height: 1920px;
-            background: linear-gradient(135deg, <?php echo $theme_color; ?> 0%, #000 100%);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 100px;
-            box-sizing: border-box;
-            position: relative;
+        body, html {
+            margin: 0; padding: 0;
+            width: 1080px; height: 1920px;
             overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: <?php echo esc_attr($bg_color); ?>;
+            color: #fff;
         }
-        .story-card:before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            opacity: 0.1;
-            pointer-events: none;
-        }
-        .story-card:after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-            pointer-events: none;
+        #story-canvas {
+            width: 1080px; height: 1920px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            position: relative;
         }
         .avatar {
-            width: 350px;
-            height: 350px;
+            width: 300px; height: 300px;
             border-radius: 50%;
             border: 15px solid #fff;
             margin-bottom: 50px;
             object-fit: cover;
         }
-        h1 { font-size: 8rem; margin: 0 0 20px; font-weight: 900; }
-        p { font-size: 3rem; opacity: 0.8; margin: 0 0 100px; text-align: center; }
-        .qr-wrapper {
+        h1 { font-size: 80px; margin: 0 0 20px; font-weight: 900; }
+        .headline { font-size: 45px; opacity: 0.9; margin-bottom: 60px; max-width: 800px; }
+        .qr-placeholder {
+            width: 400px; height: 400px;
             background: #fff;
-            padding: 40px;
+            padding: 20px;
             border-radius: 40px;
-            margin-bottom: 40px;
+            margin-top: 80px;
         }
-        .qr-wrapper img { width: 400px; }
-        .footer-text { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; }
-        .controls { position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
-        .btn { background: #fff; color: #000; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 900; box-shadow: 0 10px 20px rgba(0,0,0,0.2); cursor: pointer; border: none; font-size: 1.2rem; }
-        @media print { .controls { display: none; } .story-card { margin: 0; transform: scale(0.5); transform-origin: top left; } }
+        .footer-url {
+            position: absolute;
+            bottom: 100px;
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .branding {
+            position: absolute;
+            bottom: 40px;
+            font-size: 25px;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
-    <div class="controls">
-        <button class="btn" onclick="window.print()">📥 Download as PDF / Print</button>
-        <button class="btn" onclick="window.close()" style="background:#ef4444; color:#fff;">Close</button>
-    </div>
-    <div class="story-card">
+    <div id="story-canvas">
         <?php if ( has_post_thumbnail( $profile_id ) ) : ?>
-            <?php echo get_the_post_thumbnail( $profile_id, 'thumbnail', ['class' => 'avatar']); ?>
+            <?php echo get_the_post_thumbnail( $profile_id, 'large', ['class' => 'avatar'] ); ?>
+        <?php else : ?>
+            <div class="avatar" style="background:#eee;"></div>
         <?php endif; ?>
-        <h1><?php echo esc_html($profile->post_title); ?></h1>
-        <p><?php echo esc_html($meta['headline']); ?></p>
 
-        <div class="qr-wrapper">
-            <img src="<?php echo saas_get_profile_qr_url($profile->post_name, '#000000'); ?>">
+        <h1><?php echo esc_html($profile->post_title); ?></h1>
+        <p class="headline"><?php echo esc_html($meta['headline']); ?></p>
+
+        <div class="qr-placeholder">
+            <!-- QR placeholder for the asset generation engine -->
+            <div style="width:100%; height:100%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:40px; font-weight:bold;">
+                SCAN ME
+            </div>
         </div>
-        <div class="footer-text">Scan to Connect</div>
+
+        <div class="footer-url"><?php echo parse_url(home_url(), PHP_URL_HOST); ?>/<?php echo $slug; ?></div>
+        <div class="branding">Powered by <?php bloginfo('name'); ?></div>
     </div>
 </body>
 </html>

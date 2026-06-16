@@ -26,7 +26,7 @@ if ( ! $profile ) {
         while ( have_posts() ) : the_post(); ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class('standard-page-container'); ?>>
                 <header class="entry-header">
-                    <?php the_title( '<h1 class="entry-title" style="font-size: 2.5rem; margin-bottom: 40px; text-align: center;">', '</h1>' ); ?>
+                    <?php the_title( '<h1 class="entry-title text-center mb-40 text-4xl">', '</h1>' ); ?>
                 </header>
                 <div class="entry-content">
                     <?php the_content(); ?>
@@ -88,12 +88,6 @@ include __DIR__ . '/header.php';
             else echo 'none';
         ?>;
     }
-    .btn-text-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; }
-    .btn-desc { font-size: 0.8rem; opacity: 0.8; margin-top: 4px; display: block; }
-    .testimonial-block { padding: 30px; background: #fff; border-radius: var(--btn-radius); box-shadow: var(--shadow-style); text-align: center; position: relative; transition: transform 0.3s; border: 1px solid rgba(0,0,0,0.05); }
-    .testimonial-block:hover { transform: translateY(-5px); }
-    .testimonial-link { display: inline-block; margin-top: 15px; color: var(--primary-color); font-weight: 700; text-decoration: none; font-size: 0.9rem; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
-    .testimonial-link:hover { border-color: var(--primary-color); }
     <?php
     $custom_css = get_post_meta($profile_id, '_saas_custom_css', true);
     if ($is_pro && $custom_css) echo $custom_css;
@@ -126,7 +120,7 @@ include __DIR__ . '/header.php';
     $cover_id = get_post_meta($profile_id, '_saas_cover_id', true);
     if ($cover_id) : ?>
         <div class="profile-cover">
-            <?php echo wp_get_attachment_image($cover_id, 'large'); ?>
+            <?php echo wp_get_attachment_image($cover_id, 'large', false, ['class' => 'full-size-cover']); ?>
         </div>
     <?php endif; ?>
 
@@ -139,7 +133,11 @@ include __DIR__ . '/header.php';
         <?php endif; ?>
         <h1>
             <?php echo esc_html( $profile->post_title ); ?>
-            <span class="verified-badge" title="Verified Professional" style="color:#1d9bf0; font-size:0.8em; margin-left:5px; <?php echo ($is_pro && get_post_meta($profile_id, '_saas_verified_badge', true)) ? '' : 'display:none;'; ?>">✅</span>
+            <?php
+                $is_verified = $is_pro && get_post_meta($profile_id, '_saas_verified_badge', true);
+                $badge_class = 'verified-badge' . ($is_verified ? '' : ' display-none');
+            ?>
+            <span class="<?php echo $badge_class; ?>" title="Verified Professional">✨</span>
         </h1>
         <p class="headline"><?php echo esc_html( $meta['headline'] ); ?></p>
         <p class="bio"><?php echo nl2br( esc_html( $meta['bio'] ) ); ?></p>
@@ -149,15 +147,10 @@ include __DIR__ . '/header.php';
     <div class="blocks-container">
         <?php foreach ( $blocks as $index => $block ) :
             $type = get_post_meta( $block->ID, '_saas_block_type', true ) ?: 'button';
-
-            // Pro Gating Check - Relaxed for display to ensure consistency
-            // Gating is handled at the creation level
-            $pro_blocks = ['image_gallery', 'newsletter', 'product', 'calendar'];
-
             $style = get_post_meta( $block->ID, '_saas_block_style', true ) ?: 'regular';
             $animation = get_post_meta($block->ID, '_saas_block_animation', true) ?: 'fadeinup';
             $base_url = get_post_meta( $block->ID, '_saas_link_url', true );
-            $url = saas_get_effective_url( $block->ID, $base_url ); // Device/Geo Routing
+            $url = saas_get_effective_url( $block->ID, $base_url );
             $custom_bg = get_post_meta($block->ID, '_saas_custom_bg', true);
             $custom_text = get_post_meta($block->ID, '_saas_custom_text', true);
             $block_style_attr = '';
@@ -165,14 +158,12 @@ include __DIR__ . '/header.php';
             if ($custom_text) $block_style_attr .= "color: $custom_text; ";
 
             if (!$is_preview) {
-                // Scheduling Check
                 $start_date = get_post_meta($block->ID, '_saas_start_date', true);
                 $end_date = get_post_meta($block->ID, '_saas_end_date', true);
                 $now = time();
                 if ($start_date && strtotime($start_date) > $now) continue;
                 if ($end_date && strtotime($end_date) < $now) continue;
 
-                // Hour-based scheduling
                 $hour_from = get_post_meta($block->ID, '_saas_hour_from', true);
                 $hour_to   = get_post_meta($block->ID, '_saas_hour_to', true);
                 if ($is_pro && ($hour_from !== '' || $hour_to !== '')) {
@@ -185,8 +176,6 @@ include __DIR__ . '/header.php';
             <div class="saas-block block-<?php echo esc_attr($type); ?> style-<?php echo esc_attr($style); ?> animate-<?php echo esc_attr($animation); ?>" data-block-id="<?php echo $block->ID; ?>" style="animation-delay: <?php echo $index * 0.1; ?>s; <?php echo $block_style_attr; ?>">
                 <?php if ($type === 'button') :
                     $has_pass = !empty(get_post_meta($block->ID, '_saas_link_password', true));
-
-                    // A/B Split Testing Logic (Sticky via Cookie)
                     $ab_title_b = get_post_meta($block->ID, '_saas_ab_title_b', true);
                     $ab_url_b   = get_post_meta($block->ID, '_saas_ab_url_b', true);
                     $variant    = 'a';
@@ -197,9 +186,8 @@ include __DIR__ . '/header.php';
                             $variant = $_COOKIE[$cookie_name];
                         } else {
                             $variant = (rand(0, 1) === 1) ? 'b' : 'a';
-                            setcookie($cookie_name, $variant, time() + (86400 * 30), "/"); // 30 days
+                            setcookie($cookie_name, $variant, time() + (86400 * 30), "/");
                         }
-
                         if ($variant === 'b') {
                             $block->post_title = $ab_title_b;
                             $url = saas_get_effective_url($block->ID, $ab_url_b);
@@ -232,8 +220,9 @@ include __DIR__ . '/header.php';
                     </div>
                 <?php elseif ($type === 'testimonial') : ?>
                     <div class="testimonial-block">
-                        <p class="quote" style="font-size: 1.15rem; line-height: 1.7; font-style: italic; color: #334155;">"<?php echo esc_html( get_post_meta($block->ID, '_saas_testimonial_text', true) ); ?>"</p>
-                        <cite style="display: block; margin-top: 20px; font-weight: 900; color: #0f172a; font-style: normal; font-size: 1.1rem;">— <?php echo esc_html( $block->post_title ); ?></cite>
+                        <div class="quote-mark">“</div>
+                        <p class="quote">"<?php echo esc_html( get_post_meta($block->ID, '_saas_testimonial_text', true) ); ?>"</p>
+                        <cite>— <?php echo esc_html( $block->post_title ); ?></cite>
                         <?php if ($url && $url !== '#') : ?>
                             <a href="<?php echo esc_url($url); ?>" class="testimonial-link" target="_blank">View Case Study ↗</a>
                         <?php endif; ?>
@@ -300,8 +289,8 @@ include __DIR__ . '/header.php';
                     <div class="newsletter-block">
                         <h3><?php echo esc_html($block->post_title); ?></h3>
                         <form class="newsletter-form">
-                            <input type="email" placeholder="Email Address" required>
-                            <button type="submit">Join</button>
+                            <input type="email" placeholder="Email Address" required class="saas-input mb-15">
+                            <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-dark">Join</button>
                         </form>
                     </div>
                 <?php elseif ($type === 'milestone') : ?>
@@ -321,45 +310,45 @@ include __DIR__ . '/header.php';
                         <form class="product-checkout-form">
                             <input type="hidden" name="block_id" value="<?php echo $block->ID; ?>">
                             <input type="hidden" name="plan_id" value="product_<?php echo $block->ID; ?>">
-                            <button type="submit" class="saas-link-btn product-cta" style="border:none; cursor:pointer;">Buy Now</button>
+                            <button type="submit" class="saas-link-btn product-cta cursor-pointer border-none">Buy Now</button>
                         </form>
                     </div>
                 <?php elseif ($type === 'social_feed') : ?>
                     <div class="social-feed-block">
-                        <div style="border:1px dashed #ccc; padding:40px; border-radius:12px; background:rgba(0,0,0,0.02);">
-                            <p style="margin:0; font-weight:bold;"><?php echo esc_html($block->post_title); ?> Feed</p>
-                            <p style="font-size:0.8rem; color:#888;">Embed for <?php echo esc_url($url); ?> will appear here.</p>
+                        <div class="placeholder-block">
+                            <p class="font-bold mb-0"><?php echo esc_html($block->post_title); ?> Feed</p>
+                            <p class="text-sm color-lighter mb-0">Embed for <?php echo esc_url($url); ?> will appear here.</p>
                         </div>
                     </div>
                 <?php elseif ($type === 'lead_form') : ?>
-                    <section class="lead-form-section block-lead-form">
-                        <h3><?php echo esc_html( $block->post_title ?: 'Contact Me' ); ?></h3>
+                    <section class="lead-form-section block-lead-form glass-card p-32 text-left">
+                        <h3 class="mb-24 text-center"><?php echo esc_html( $block->post_title ?: 'Contact Me' ); ?></h3>
                         <form class="saas-dynamic-form" data-block-id="<?php echo $block->ID; ?>">
                             <input type="hidden" name="profile_id" value="<?php echo $profile_id; ?>">
                             <input type="hidden" name="block_id" value="<?php echo $block->ID; ?>">
                             <input type="hidden" name="security" value="<?php echo wp_create_nonce('saas_lead_nonce'); ?>">
-                            <div style="display:none;"><input type="text" name="saas_honeypot"></div>
-                            <div class="input-group">
-                                <input type="text" name="name" placeholder="Your Name" required>
+                            <div class="display-none"><input type="text" name="saas_honeypot"></div>
+                            <div class="mb-16">
+                                <input type="text" name="name" placeholder="Your Name" required class="saas-input">
                             </div>
-                            <div class="input-group">
-                                <input type="email" name="email" placeholder="Your Email" required>
+                            <div class="mb-16">
+                                <input type="email" name="email" placeholder="Your Email" required class="saas-input">
                             </div>
                             <?php if (get_post_meta($profile_id, '_saas_form_phone', true)) : ?>
-                                <div class="input-group">
-                                    <input type="text" name="phone" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_phone', true) ?: 'Phone Number'); ?>" <?php if(get_post_meta($profile_id, '_saas_form_req_phone', true)) echo 'required'; ?>>
+                                <div class="mb-16">
+                                    <input type="text" name="phone" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_phone', true) ?: 'Phone Number'); ?>" <?php if(get_post_meta($profile_id, '_saas_form_req_phone', true)) echo 'required'; ?> class="saas-input">
                                 </div>
                             <?php endif; ?>
                             <?php if (get_post_meta($profile_id, '_saas_form_msg', true)) : ?>
-                                <div class="input-group">
-                                    <textarea name="message" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_msg', true) ?: 'Your Message'); ?>" rows="3" <?php if(get_post_meta($profile_id, '_saas_form_req_msg', true)) echo 'required'; ?>></textarea>
+                                <div class="mb-24">
+                                    <textarea name="message" placeholder="<?php echo esc_attr(get_post_meta($profile_id, '_saas_form_label_msg', true) ?: 'Your Message'); ?>" rows="3" <?php if(get_post_meta($profile_id, '_saas_form_req_msg', true)) echo 'required'; ?> class="saas-input"></textarea>
                                 </div>
                             <?php endif; ?>
-                            <button type="submit">Submit Request</button>
+                            <button type="submit" class="saas-link-btn style-featured font-bold border-none cursor-pointer">Submit Request</button>
                         </form>
                         <?php
                         $footer = get_post_meta($block->ID, '_saas_link_desc', true);
-                        if ($footer) echo '<p class="field-hint" style="text-align:center; margin-top:15px; opacity:0.7;">' . esc_html($footer) . '</p>';
+                        if ($footer) echo '<p class="field-hint text-center mt-15 opacity-70">' . esc_html($footer) . '</p>';
                         ?>
                         <div class="lead-feedback"></div>
                     </section>
@@ -440,12 +429,12 @@ include __DIR__ . '/header.php';
     $footer_text   = get_post_meta($profile_id, '_saas_footer_text', true);
 
     if ($is_pro) : ?>
-        <div class="saas-growth-branding" style="margin-top:40px; padding-bottom:120px; opacity:0.6; font-size:0.8rem;">
+        <div class="saas-growth-branding">
             <?php echo esc_html($footer_text ?: ''); ?>
         </div>
     <?php else : ?>
-        <div class="saas-growth-branding" style="margin-top:40px; padding-bottom:120px; opacity:0.6; font-size:0.8rem;">
-            <a href="<?php echo home_url('/?ref=' . $slug); ?>" style="text-decoration:none; color:inherit; font-weight:800;">
+        <div class="saas-growth-branding">
+            <a href="<?php echo home_url('/?ref=' . $slug); ?>" class="inherit-link font-black">
                 Powered by <?php echo get_bloginfo('name'); ?> 🚀
             </a>
         </div>
@@ -460,17 +449,17 @@ include __DIR__ . '/header.php';
     </nav>
 
     <!-- Link Password Modal -->
-    <div id="link-password-modal" class="saas-theme-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
-        <div class="modal-inner" style="background:#fff; padding:40px; border-radius:24px; max-width:400px; width:90%; text-align:center;">
-            <div style="font-size:3rem; margin-bottom:20px;">🔒</div>
+    <div id="link-password-modal" class="saas-theme-modal display-none">
+        <div class="modal-inner">
+            <div class="modal-icon">🔒</div>
             <h3>Password Required</h3>
             <p>This content is protected. Please enter the password to continue.</p>
-            <form id="saas-pass-form" style="margin-top:20px;">
+            <form id="saas-pass-form" class="mt-20">
                 <input type="hidden" id="modal-link-id">
-                <input type="password" id="modal-pass-input" placeholder="Enter Password" style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px; box-sizing:border-box;">
-                <button type="submit" style="width:100%; padding:15px; background:var(--primary-color); color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">Unlock Content</button>
+                <input type="password" id="modal-pass-input" placeholder="Enter Password" class="saas-input mb-15">
+                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-color">Unlock Content</button>
             </form>
-            <button class="close-pass-modal" style="margin-top:20px; background:none; border:none; color:#999; cursor:pointer;">Cancel</button>
+            <button class="close-pass-modal modal-close-btn">Cancel</button>
         </div>
     </div>
 </div>
@@ -479,16 +468,16 @@ include __DIR__ . '/header.php';
 // Profile Password Protection Logic
 $profile_pass = get_post_meta($profile_id, '_saas_profile_password', true);
 if ($is_pro && $profile_pass) : ?>
-    <div id="profile-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:99999; display:flex; align-items:center; justify-content:center; text-align:center;">
-        <div style="max-width:400px; padding:40px;">
-            <div style="font-size:4rem; margin-bottom:20px;">🔐</div>
+    <div id="profile-gate" class="saas-theme-modal bg-white-pure z-99999">
+        <div class="container-narrow p-40 text-center">
+            <div class="modal-icon">🔐</div>
             <h2>Private Profile</h2>
             <p>Please enter the password to view this digital identity.</p>
             <form id="profile-gate-form">
-                <input type="password" id="gate-pass" placeholder="Password" required style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px;">
-                <button type="submit" style="width:100%; padding:15px; background:var(--primary-color); color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">Unlock Profile</button>
+                <input type="password" id="gate-pass" placeholder="Password" required class="saas-input mb-15">
+                <button type="submit" class="saas-input font-bold color-white border-none cursor-pointer bg-primary-color">Unlock Profile</button>
             </form>
-            <div id="gate-error" style="color:red; margin-top:10px; display:none;">Incorrect password.</div>
+            <div id="gate-error" class="color-red mt-10 display-none">Incorrect password.</div>
         </div>
     </div>
     <script>
@@ -499,7 +488,7 @@ if ($is_pro && $profile_pass) : ?>
             document.getElementById('profile-gate').style.display = 'none';
             document.body.style.overflow = 'auto';
         } else {
-            document.getElementById('gate-error').style.display = 'block';
+            document.getElementById('gate-error').classList.remove('display-none');
         }
     };
     document.body.style.overflow = 'hidden';
@@ -532,12 +521,14 @@ function saasCheckLink(e, linkId, hasPass, variant = 'a') {
     const modal = document.getElementById('link-password-modal');
     document.getElementById('modal-link-id').value = linkId;
     document.getElementById('modal-pass-input').value = '';
+    modal.classList.remove('display-none');
     modal.style.display = 'flex';
 
     return false;
 }
 
 document.querySelector('.close-pass-modal')?.addEventListener('click', () => {
+    document.getElementById('link-password-modal').classList.add('display-none');
     document.getElementById('link-password-modal').style.display = 'none';
 });
 
@@ -646,7 +637,7 @@ document.querySelectorAll('.newsletter-form').forEach(form => {
         .then(r => r.json())
         .then(data => {
             if (data.success) {
-                this.innerHTML = '<p style="font-weight:bold; color:#fff; margin-top:10px;">✓ Subscribed successfully!</p>';
+                this.innerHTML = '<p class="font-bold color-white mt-10">✓ Subscribed successfully!</p>';
             } else {
                 alert(data.data);
                 submitBtn.innerText = originalBtnText;
@@ -665,12 +656,12 @@ window.addEventListener('message', function(event) {
             if (coverCont) {
                 const img = coverCont.querySelector('img');
                 if (img) img.src = value;
-                else coverCont.innerHTML = `<img src="${value}" style="width:100%; height:100%; object-fit:cover;">`;
+                else coverCont.innerHTML = `<img src="${value}" class="full-size-cover">`;
             } else {
                 const header = document.querySelector('.profile-header');
                 const newCover = document.createElement('div');
                 newCover.className = 'profile-cover';
-                newCover.innerHTML = `<img src="${value}" style="width:100%; height:100%; object-fit:cover;">`;
+                newCover.innerHTML = `<img src="${value}" class="full-size-cover">`;
                 header.parentNode.insertBefore(newCover, header);
                 header.classList.add('has-cover');
             }
@@ -687,7 +678,7 @@ window.addEventListener('message', function(event) {
             else document.body.style.backgroundColor = value;
         }
         if (key === 'profile_theme') {
-            document.body.classList.remove('theme-light', 'theme-dark', 'theme-vibrant', 'theme-luxury');
+            document.body.classList.remove('theme-light', 'theme-dark', 'theme-vibrant', 'theme-luxury', 'theme-modern-glass', 'theme-midnight-neon');
             document.body.classList.add('theme-' + value);
         }
         if (key === 'font_family') {
@@ -707,7 +698,10 @@ window.addEventListener('message', function(event) {
         }
         if (key === 'verified_badge') {
             const badge = document.querySelector('.verified-badge');
-            if (badge) badge.style.display = value ? 'inline' : 'none';
+            if (badge) {
+                if (value) badge.classList.remove('display-none');
+                else badge.classList.add('display-none');
+            }
         }
         if (key === 'custom_css') {
             const style = document.getElementById('saas-custom-style-tag') || document.createElement('style');
